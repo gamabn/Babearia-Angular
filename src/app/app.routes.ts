@@ -6,10 +6,11 @@ import { Cadastro } from './features/pages/cadastro/cadastro';
 export const routes: Routes = [
     {
         path: '',
-        component: Login
+        loadComponent: () => import('./features/pages/login/login')
+        .then(m=>m.Login)
     },
     {
         path: 'cadastro',
-        component: Cadastro
+       loadComponent:() => import('./features/pages/cadastro/cadastro').then(m=>m.Cadastro)
     }
 ];
