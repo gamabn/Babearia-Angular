@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="container-box">
+      <h1>Entra na sua conta</h1>
+        <div class="input-email">
+             <label for="email">Email</label>
+               <input
+                  id="email"
+                  placeholder="Digite seu email"
+                  [(ngModel)]="email"
+                  type="text">
+        </div>
+        <div class="input-senha">
+             <label for="password">Senha</label>
+                <input
+
+                  id="password"
+                  placeholder="Digite sua senha"
+                  [(ngModel)]="password"
+                  type="password">
+
+        </div>
+
+        <button   class="btn-login">
+            Entrar
+        </button>
+        <a href="/cadastro">Se nao tem conta?.Cadastre-se</a>
+
+       <!---<h2 *ngIf="logado" >
+            Voce esta logado
+        </h2>--->
+       <!--<div>
+        <h2 *ngFor="let item of funcionario">
+            {{item.email}}
+          </h2>
+       </div>--->
+    </div>
+</div>
