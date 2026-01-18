@@ -1,13 +1,22 @@
 <div class="container">
     <div class="container-box">
       <h1>Entra na sua conta</h1>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="input-email">
              <label for="email">Email</label>
                <input
                   id="email"
                   placeholder="Digite seu email"
-                  [(ngModel)]="email"
-                  type="text">
+                  formControlName="email"
+                  type="email">
+                   <div *ngIf="form.controls.email.errors?.['required']">
+                    Email obrigatório
+                  </div>
+
+                  <div *ngIf="form.controls.email.errors?.['email']">
+                    Email inválido
+                  </div>
         </div>
         <div class="input-senha">
              <label for="password">Senha</label>
@@ -15,14 +24,19 @@
 
                   id="password"
                   placeholder="Digite sua senha"
-                  [(ngModel)]="password"
+                 formControlName="password"
                   type="password">
+
+                   <div *ngIf="form.controls.password.errors?.['minlength']">
+                    Senha mínima de 6 caracteres
+                  </div>
 
         </div>
 
-        <button   class="btn-login">
+        <button type="submit" [disabled]="form.invalid"  class="btn-login">
             Entrar
         </button>
+        </form>
         <a href="/cadastro">Se nao tem conta?.Cadastre-se</a>
 
        <!---<h2 *ngIf="logado" >

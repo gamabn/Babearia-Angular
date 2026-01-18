@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Api } from '../../../core/services/api';
 
@@ -7,16 +7,29 @@ import { Api } from '../../../core/services/api';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login {
-  email = '';
-  password = '';
-  posts: any[] = [];
-
    constructor(private api: Api) {}
+ // email = '';
+//  password = '';
+ // posts: any[] = [];
+ form = new FormGroup({
+  email: new FormControl('', [Validators.required, Validators.email]),
+  password: new FormControl('', [Validators.required, Validators.minLength(6)])
+ })
+
+ submit(){
+  console.log(this.form.value);
+    if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
+ }
+
+
 
    //login(): void {
    // this.api.getPosts().subscribe({
