@@ -2,41 +2,43 @@
   <div class="container-box"></div>
   <div class="formulario">
     <h1>Cadastre sua barbearia</h1>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
    <div class="input-container">
         <label for="">Imagem da Barbearia</label>
         <input
          id="imagem"
-         [(ngModel)]="image"
+         formControlName="imagem"
          type="file">
    </div>
 
 
     <div class="input-container">
-      <label
-      for="nome">Nome</label>
+      <label for="nome">Nome</label>
       <input
-      [(ngModel)]="name"
-      id="nome"
-      type="text">
-    </div>
+      formControlName="nome"
+        type="text">
+      </div>
+
     <div class="input-container">
       <label for="email">Email</label>
       <input
-      [(ngModel)]="email"
-      id="email"
+      formControlName="email"
       type="text">
     </div>
+
     <div class="input-container">
       <label for="senha">Senha</label>
       <input
-      [(ngModel)]="password"
+     formControlName="password"
       id="senha"
       type="text">
     </div>
+
     <div class="input-container">
       <label for="telefone">Telefone</label>
       <input
-      [(ngModel)]="phone"
+     formControlName="telefone"
       id="telefone"
        type="text">
     </div>
@@ -44,35 +46,45 @@
     <div class="input-container">
       <label for="cidade">Cidade</label>
       <input
-      [(ngModel)]="city"
+     formControlName="city"
       id="cidade"
       type="text">
     </div>
+
     <div class="input-container">
-      <label for="estado">Bairro</label>
+      <label for="estado">Estado</label>
       <input
-      [(ngModel)]="neighborhood"
-      id="estado"
-      type="text">
-    </div>
-     <div class="input-container">
-      <label for="estado">Rua</label>
-      <input
-      [(ngModel)]="street"
-      id="estado"
-      type="text">
-    </div >
-     <div class="input-container">
-      <label for="estado">Bairro</label>
-      <input
-      [(ngModel)]="neighborhood"
-      id="estado"
+     formControlName="estado"
       type="text">
     </div>
 
-    <button class="btn-login" (click)="cadastrar()">
+     <div class="input-container">
+      <label for="street">Rua</label>
+      <input
+      formControlName="street"
+      id="street"
+      type="text">
+    </div >
+
+     <div class="input-container">
+      <label for="estado">Bairro</label>
+      <input
+     formControlName="neighborhood"
+      type="text">
+    </div>
+    <div class="input-container">
+      <label for="estado">Numero</label>
+      <input
+     formControlName="number"
+      type="text">
+    </div>
+
+    <button class="btn-login" (click)="submit()">
       Cadastrar
     </button>
+    </form>
+    <div>
+
   </div>
 
 </div>

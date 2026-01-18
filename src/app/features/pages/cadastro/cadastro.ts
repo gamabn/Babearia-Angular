@@ -1,67 +1,36 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule,FormControl, FormGroup, Validators} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Api } from '../../../core/services/api';
 
-
-interface Funcionario {
-  name: string;
-  email: string;
-  password: string;
-  city: string;
-}
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
 export class Cadastro {
-image = '';
- name = '';
- email = '';
- password = '';
- city = '';
- street = '';
- number = '';
- neighborhood = '';
-phone = '';
-//funcionario: Funcionario[] = [];
  constructor(private api: Api) {}
 
-cadastrar(){
+ form = new FormGroup({
+  nome: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  email: new FormControl('', [Validators.required, Validators.email]),
+  password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+  city: new FormControl('', [Validators.required]),
+  street: new FormControl('', [Validators.required]),
+  number: new FormControl('', [Validators.required]),
+  neighborhood: new FormControl('', [Validators.required]),
+  estado: new FormControl('', [Validators.required]),
+ telefone: new FormControl('', [Validators.required]),
+  imagem: new FormControl('', [Validators.required])
+ })
 
-  const dadosCadastro = {
-    name: this.name,
-    email: this.email,
-    password: this.password,
-    city: this.city,
-    street: this.street,
-    number: this.number,
-    neighborhood: this.neighborhood,
-    phone: this.phone,
-    image: this.image
-  };
-
-  console.log('Enviando dados para cadastro:', dadosCadastro);
-
-  this.api.createPost(dadosCadastro).subscribe({
-    next: (res) => {
-      console.log('Cadastro realizado com sucesso!', res);
-      // Aqui você pode adicionar lógica para lidar com o sucesso,
-      // como limpar o formulário, redirecionar o usuário ou mostrar uma mensagem.
-    },
-    error: (err) => {
-      console.error('Erro ao cadastrar:', err);
-      // Aqui você pode adicionar lógica para lidar com o erro,
-      // como mostrar uma mensagem de erro para o usuário.
-    }
-  });
-
-}
-//console.log('Nome do barbeiro',this.nome);
-
-
-
+ submit(){
+  console.log(this.form.value);
+    if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
+  }
+ }
 }
