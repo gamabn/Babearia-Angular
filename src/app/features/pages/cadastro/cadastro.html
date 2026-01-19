@@ -3,13 +3,18 @@
   <div class="formulario">
     <h1>Cadastre sua barbearia</h1>
 
-    <form [formGroup]="form" (ngSubmit)="submit()">
+
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
    <div class="input-container">
         <label for="">Imagem da Barbearia</label>
         <input
          id="imagem"
-         formControlName="imagem"
+        (change)="onImagemSelecionada($event)"
          type="file">
+           @if (imagemPreview) {
+            <img  [src]="imagemPreview" alt="Barbearia" width="200" />
+          }
    </div>
 
 
@@ -18,6 +23,9 @@
       <input
       formControlName="nome"
         type="text">
+         <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('email', 'required')">
+        Nome é obrigatório
+      </div>
       </div>
 
     <div class="input-container">
@@ -25,15 +33,18 @@
       <input
       formControlName="email"
       type="text">
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('email', 'required')">
+        Email é obrigatório
+      </div>
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('email', 'email')">
+        Email inválido
+     </div>
+
     </div>
 
-    <div class="input-container">
-      <label for="senha">Senha</label>
-      <input
-     formControlName="password"
-      id="senha"
-      type="text">
-    </div>
+
 
     <div class="input-container">
       <label for="telefone">Telefone</label>
@@ -41,6 +52,9 @@
      formControlName="telefone"
       id="telefone"
        type="text">
+       <span style="color: brown; padding: 10px;" *ngIf="mostrarErro('telefone', 'pattern')">
+           Formato de telefone inválido. Use (DD) 999999999.
+       </span>
     </div>
 
     <div class="input-container">
@@ -79,9 +93,40 @@
       type="text">
     </div>
 
+    <div class="input-container">
+      <label for="senha">Senha</label>
+      <input
+     formControlName="password"
+      id="senha"
+      type="password">
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('password', 'required')">
+        Senha e obrigatorio
+      </div>
+    </div>
+
+    <div class="input-container">
+      <label for="senha">Confirmar Senha</label>
+      <input
+     formControlName="passwordConfirmation"
+
+      id="senha"
+      type="password">
+
+  <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('password', 'required')">
+        Senha e obrigatorio
+      </div>
+
+      <div *ngIf="form.hasError('senhaDiferente') && form.get('passwordConfirmation')?.touched"
+         style="color:brown; padding:10px">
+           As senhas não conferem
+           </div>
+    </div>
+
     <button class="btn-login" (click)="submit()">
       Cadastrar
     </button>
+     <a href="/">logar</a>
     </form>
     <div>
 

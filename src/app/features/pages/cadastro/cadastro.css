@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  background-color: black;
+  width: 100vw;
+  height: 100vh
+
 }
 .container-box{
   background-image: url('./../../../../../public/barberBackNew.jpg');
@@ -9,18 +13,20 @@
   background-size: cover;
   width: 50vw;
   height: 100vh;
-  padding: 30px;
+  padding-top: 30px;
+
 }
 .formulario{
-  display: flex;
+  display: block;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   background-color: black;
   width: 50vw;
   height: 100vh;
-  padding: 30px;
+  padding: 20px;
   color: gray;
+  overflow-y: auto;
 }
 .input-container{
   display: flex;
@@ -49,4 +55,22 @@ input{
   width: 80px;
   margin-top: 20px;
   border: none;
+}
+
+img{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;;
+  border: none;
+  border-radius: 5%;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(0, 255, 149);
+  margin-top: 15px;
+  padding: 10px;
+
 }
