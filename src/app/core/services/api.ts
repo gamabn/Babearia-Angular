@@ -12,10 +12,7 @@ export class Api {
   constructor(private http: HttpClient) {
   }   // GET - buscar lista de posts
   getPosts(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/user`).pipe(
-      res => res,
-      error => error
-    );
+    return this.http.get(`${this.baseUrl}/user`)
   }
 
   // GET - buscar um post por id

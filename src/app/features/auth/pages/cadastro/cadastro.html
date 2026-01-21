@@ -21,9 +21,9 @@
     <div class="input-container">
       <label for="nome">Nome</label>
       <input
-      formControlName="nome"
+      formControlName="name"
         type="text">
-         <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('email', 'required')">
+         <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('name', 'required')">
         Nome é obrigatório
       </div>
       </div>
@@ -49,10 +49,10 @@
     <div class="input-container">
       <label for="telefone">Telefone</label>
       <input
-     formControlName="telefone"
+     formControlName="phone"
       id="telefone"
        type="text">
-       <span style="color: brown; padding: 10px;" *ngIf="mostrarErro('telefone', 'pattern')">
+       <span style="color: brown; padding: 10px;" *ngIf="mostrarErro('phone', 'pattern')">
            Formato de telefone inválido. Use (DD) 999999999.
        </span>
     </div>
@@ -63,13 +63,9 @@
      formControlName="city"
       id="cidade"
       type="text">
-    </div>
-
-    <div class="input-container">
-      <label for="estado">Estado</label>
-      <input
-     formControlName="estado"
-      type="text">
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('city', 'required')">
+       Cidade e obrigatorio
+     </div>
     </div>
 
      <div class="input-container">
@@ -78,6 +74,10 @@
       formControlName="street"
       id="street"
       type="text">
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('street', 'required')">
+        Rua e obrigatorio
+     </div>
     </div >
 
      <div class="input-container">
@@ -85,19 +85,28 @@
       <input
      formControlName="neighborhood"
       type="text">
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('neighborhood', 'required')">
+        Bairro e obrigatorio
+     </div>
     </div>
+
     <div class="input-container">
       <label for="estado">Numero</label>
       <input
      formControlName="number"
       type="text">
+
+      <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('number', 'required')">
+        Numero e obrigatorio
+     </div>
     </div>
 
     <div class="input-container">
       <label for="senha">Senha</label>
       <input
      formControlName="password"
-      id="senha"
+      id="password"
       type="password">
 
       <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('password', 'required')">
@@ -110,10 +119,10 @@
       <input
      formControlName="passwordConfirmation"
 
-      id="senha"
+      id="passwordConfirmation"
       type="password">
 
-  <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('password', 'required')">
+  <div style="color: brown;padding: 10px;" *ngIf="mostrarErro('passwordConfirmation', 'required')">
         Senha e obrigatorio
       </div>
 
@@ -123,7 +132,7 @@
            </div>
     </div>
 
-    <button class="btn-login" (click)="submit()">
+    <button class="btn-login" >
       Cadastrar
     </button>
      <a href="/">logar</a>
