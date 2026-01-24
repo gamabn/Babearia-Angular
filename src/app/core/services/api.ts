@@ -14,6 +14,10 @@ export class Api {
   getPosts(): Observable<any> {
     return this.http.get(`${this.baseUrl}/user`)
   }
+postLogin({email, password}: any): Observable<any> {
+    return this.http.get(`${this.baseUrl}/login`, { params: { email, password }} )
+  }
+
 
   // GET - buscar um post por id
   getPost(id: number): Observable<any> {
@@ -22,10 +26,7 @@ export class Api {
 
   // POST - criar novo post
   createPost(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/user`, data).pipe(
-      res => res,
-      error => error
-    );
+    return this.http.post(`${this.baseUrl}/user`, data)
   }
 
   // PUT - atualizar post
