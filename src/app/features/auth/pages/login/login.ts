@@ -5,7 +5,7 @@ import { Auth } from '../../../../core/services/auth';
 import { Detail } from '../../../../core/services/detail';
 import { Router } from '@angular/router';
 import { UserStore } from '../../../../core/services/user-store';
-
+import { CadastroModel } from '../../../../features/auth/models/cadastro-model';
 
 
 @Component({
@@ -17,6 +17,8 @@ import { UserStore } from '../../../../core/services/user-store';
 })
 export class Login {
   constructor(private api: Auth, private router: Router, private detail: Detail, private userStore: UserStore) {}
+ // user: CadastroModel | null = null;
+
 
   form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -38,20 +40,32 @@ export class Login {
       next: (data) => {
         // ✅ salvar token
         localStorage.setItem('token', data.token);
+        //this.userStore.loadUser();
+       // this.userStore.setUser(data.user);
+      //this.router.navigate(['/app/dashboard']);
 
-        this.detail.detail(data.id).subscribe({
-          next: (data) => {
-            this.userStore.setUser(data);
-          }
-        })
+      //===============================================================================
+     // localStorage.setItem('token', data.token);
 
-        // (opcional) salvar dados do usuário
-        localStorage.setItem('user', JSON.stringify({
-          id: data.id,
-          name: data.name,
-          email: data.email
-        }));
-        this.router.navigate(['/dashboard']);
+    // 🔥 garante que o store esteja atualizado
+  //  this.userStore.setUser(data.user);
+
+    // 🔥 navega só depois
+  //  queueMicrotask(() => {
+  //    this.router.navigate(['/app/dashboard']);
+   // });
+//====================================================================
+
+
+      //==========================================
+    this.userStore.loadUser().subscribe(() => {
+      this.router.navigate(['/app/dashboard']);
+   });
+//====================================================
+
+            // (opcional) salvar dados do usuário
+
+
         console.log('Login realizado com sucesso', data);
       },
       error: (err) => {

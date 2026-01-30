@@ -79,3 +79,55 @@ a{
   padding: 10px;
 
 }
+ .container-right{
+  width: 50vw;
+  height: 100vh;
+  padding: 15px
+  ;
+ }
+@media screen and (max-width: 576px){
+
+
+ .container-box{
+  display: none;
+ }
+ .formulario{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px;
+ }
+ .linkA{
+
+
+  font-size:medium;
+  margin-top: 10px;
+  color: #000
+
+ }
+.container-right{
+   display: block;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+}
+
+}
+
+@media screen and (max-width: 768px){
+
+}
+
+@media screen and (max-width: 992px){
+
+}
+
+@media screen and (min-width: 1000px){
+
+}
+

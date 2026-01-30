@@ -1,26 +1,62 @@
 import { Routes } from '@angular/router';
-import { Login } from './features/auth/pages/login/login';
-import { Cadastro } from './features/auth/pages/cadastro/cadastro';
 import { authGuard } from './core/guard/auth.guard';
-import { Dashboard } from './dashboard/pages/principal/dashboard/dashboard';
-
-
 
 export const routes: Routes = [
-    {
-        path: '',
-       // canActivate: [authGuard],
-        loadComponent: () => import('./features/auth/pages/login/login')
-        .then(m=>m.Login)
-    },
-    {
-        path: 'cadastro',
-      //  canActivate: [authGuard],
-       loadComponent:() => import('./features/auth/pages/cadastro/cadastro').then(m=>m.Cadastro)
-    },
-    {
+
+  // 🔓 LOGIN (rota pública)
+  {
+    path: '',
+    loadComponent: () =>
+      import('./features/auth/pages/login/login')
+        .then(m => m.Login)
+  },
+
+  {
+    path: 'cadastro',
+    loadComponent: () =>
+      import('./features/auth/pages/cadastro/cadastro')
+        .then(m => m.Cadastro)
+  },
+
+  // 🔒 ÁREA LOGADA (layout)
+  {
+    path: 'app',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./dashboard/pages/layout/layout')
+        .then(m => m.Layout),
+    children: [
+
+      {
         path: 'dashboard',
-        canActivate: [authGuard],
-        loadComponent: () => import('./dashboard/pages/principal/dashboard/dashboard').then(m=>m.Dashboard)
-    }
+        loadComponent: () =>
+          import('./dashboard/pages/principal/dashboard/dashboard')
+            .then(m => m.Dashboard)
+      },
+      {
+        path: 'perfil',
+        loadComponent: () =>
+          import('./dashboard/pages/perfil/perfil/perfil')
+            .then(m => m.Perfil)
+      },
+      {
+        path: 'financeiro',
+        loadComponent: () =>
+          import('./dashboard/pages/financeiro/financas/financas')
+            .then(m => m.Financas)
+      },
+       {
+      path: '',
+      redirectTo: 'dashboard',
+      pathMatch: 'full'
+    },
+
+    ]
+  },
+
+  // fallback
+ // {
+//    path: '**',
+//    redirectTo: ''
+//  }
 ];

@@ -10,13 +10,16 @@
                   placeholder="Digite seu email"
                   formControlName="email"
                   type="email">
-                   <div *ngIf="form.controls.email.errors?.['required']">
-                    Email obrigatório
+                  <div>
+                    @if(form.controls.email.errors?.['email']){
+                      <p>Email obrigatório</p>
+                    }
                   </div>
 
-                  <div *ngIf="form.controls.email.errors?.['email']">
+
+                <!---  <div *ngIf="form.controls.email.errors?.['email']">
                     Email inválido
-                  </div>
+                  </div>-->
         </div>
         <div class="input-senha">
              <label for="password">Senha</label>

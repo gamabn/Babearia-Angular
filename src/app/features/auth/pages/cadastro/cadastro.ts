@@ -83,10 +83,19 @@ onImagemSelecionada(event: Event) {
   reader.readAsDataURL(file);
 }
 
-mostrarErro(campo: string, erro: string){
-  return this.form.get(campo)?.hasError(erro);
+//mostrarErro(campo: string, erro: string){
+ // return this.form.get(campo)?.hasError(erro);
 
+//}
+mostrarErro(campo: string, erro: string): boolean {
+  const control = this.form.get(campo);
+  return !!(
+    control &&
+    control.hasError(erro) &&
+    (control.touched || control.dirty)
+  );
 }
+
 
  senhaIgualValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
@@ -143,7 +152,7 @@ mostrarErro(campo: string, erro: string){
       // Envia para o login
      this.form.reset();
       this.imagemPreview = null;
-       this.router.navigate(['/']);
+       this.router.navigate(['/login']);
       console.log('Sucesso!', data);
     }
      ,

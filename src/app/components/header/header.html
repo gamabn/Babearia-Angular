@@ -1,1 +1,102 @@
-<p>header works!</p>
+<div class="header">
+  <div class="header-p">
+    <div class="header-p2">
+      <img [src]="getAvatar(user?.image_url)" alt="">
+      <h1>{{ user?.name }}</h1>
+    </div>
+
+    <!-- BOTÃO DE ABRIR -->
+    <button aria-label="Abrir menu"  (click)="abrirMenu()">
+      <ng-icon name="ionMenu" color="#00ff00" size="32"></ng-icon>
+    </button>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div
+  class="container-modal"
+  *ngIf="menuAberto"
+  @menuSlide
+  (click)="fecharMenu()">
+
+  <div
+    class="modal-menu"
+    role="menu"
+
+    (click)="$event.stopPropagation()">
+
+    <button aria-label="Fechar menu" (click)="fecharMenu()">
+      <ng-icon name="ionClose" size="28"></ng-icon>
+    </button>
+
+     <a  (click)="irPara('/app/dashboard')">
+      <span>
+         <ng-icon name="ionCut" size="24" color="#000"></ng-icon>
+      </span>
+    </a>
+
+    <a  (click)="irPara('/app/financeiro')">
+      <span>
+         <ng-icon name="ionBarChart" size="24" color="#000"></ng-icon>
+      </span>
+
+    </a>
+
+    <a routerLink="/servicos" (click)="fecharMenu()">
+       <span>
+         <ng-icon name="ionConstruct" size="24" color="#000"></ng-icon>
+      </span>
+    </a>
+
+    <a (click)="irPara('/app/perfil') ">
+    <ng-icon name="ionPersonCircleOutline" size="24" color="#000"></ng-icon>
+    </a>
+
+    <button (click)="logout()">
+      <ng-icon name="ionPower" size="30" color="#ff0000"></ng-icon>
+    </button>
+
+  </div>
+</div>
+
+ <!----  <div>
+
+  div class="header">
+  <div class="header-p">
+    <div class="header-p2">
+         <img src={{user?.image_url}} alt="">
+         <h1>{{user?.name}}</h1>
+    </div>
+<div
+    <label for="menu-toggle" class="menu-button">
+         <ng-icon name="ionMenu" color="#00ff" size="32"></ng-icon>
+    </label>
+   </div>
+ </div>
+
+
+ <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+<label for="menu-toggle"  class="container-modal">
+   <div class="modal-menu" (click)="$event.stopPropagation()">
+
+       <label for="menu-toggle" class="menu-button">
+         <ng-icon name="ionClose" color="#00ff" size="32"></ng-icon>
+       </label>
+
+      <div class="link">
+        <a href="#">Finanças</a>
+      </div>
+
+      <div  class="link">
+        <a href="#">Serviços</a>
+      </div>
+
+      <div class="link">
+      <a href=""> Editar Perfil</a>
+      </div>
+   </div>
+</label>
+</div>   -->
+
+
