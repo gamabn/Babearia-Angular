@@ -1,10 +1,18 @@
 <div class="container">
-  <h1>Editar barbearia</h1>
+
+  @if(loading) {
+    <div class="loading">
+    <h2>Carregando...</h2>
+  </div>
+  }
+
+
+  <h1>Editar sua conta</h1>
 
   <div>
     <form action="" [formGroup]="form" (ngSubmit)="submit()" >
      <div class="form-input">
-          <label for="">Logo</label>
+          <label for="">Imagem da Barbearia</label>
       <input type="file"
       (change)="mudarImagem($event)">
 
