@@ -1,0 +1,61 @@
+<div class="container">
+
+  <div>
+    <h1>Cadastre de barbeiros</h1>
+  </div>
+
+   <div class="container-button">
+    <div class="button-app">
+      <button>Barbeiros</button>
+    </div>
+
+    <div class="button-app">
+      <button
+      (click)="changeVisible()"
+      >Editar Barbeiros</button>
+    </div>
+   </div>
+
+   @if(visible){
+    <section>
+
+    <form [formGroup]="form">
+       <div>
+        @if(preview){
+        <img [src]="preview" alt="">
+        }
+       </div>
+      <div class="form-input">
+        <label for="">Imagem</label>
+        <input
+        [src]="preview"
+        (change)="mudarImagem($event)"
+        type="file">
+      </div>
+
+      <div class="form-input">
+        <label for="">Nome</label>
+        <input
+        formControlName="name"
+         type="text">
+      </div>
+
+      <div class="form-input">
+        <label for="">Telefone</label>
+        <input
+        formControlName="phone"
+         type="text">
+      </div>
+
+
+
+    </form>
+  </section>
+   }@else {
+    <div>
+      <h2>Nao tem Barbeiro</h2>
+    </div>
+   }
+
+
+</div>

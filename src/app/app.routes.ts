@@ -45,6 +45,12 @@ export const routes: Routes = [
           import('./dashboard/pages/financeiro/financas/financas')
             .then(m => m.Financas)
       },
+      {
+        path: 'barbeiros',
+        loadComponent: () =>
+          import('./dashboard/pages/barbeiros/barbeiros')
+            .then(m => m.Barbeiros)
+      },
        {
       path: '',
       redirectTo: 'dashboard',

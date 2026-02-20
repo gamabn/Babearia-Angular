@@ -1,4 +1,5 @@
 <div class="header">
+
   <div class="header-p">
     <div class="header-p2">
       <img [src]="getAvatar(user?.image_url)" alt="">
@@ -42,7 +43,7 @@
 
     </a>
 
-    <a routerLink="/servicos" (click)="fecharMenu()">
+    <a (click)="irPara('/app/barbeiros')">
        <span>
          <ng-icon name="ionConstruct" size="24" color="#000"></ng-icon>
       </span>

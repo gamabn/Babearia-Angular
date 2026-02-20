@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Barbeiros } from "../../barbeiros/barbeiros";
 
 @Component({
   selector: 'app-financas',
-  imports: [],
+  imports: [Barbeiros],
   templateUrl: './financas.html',
   styleUrl: './financas.css'
 })

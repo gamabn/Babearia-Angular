@@ -131,7 +131,7 @@ preencherFormulario(barbearia: any) {
       next: (data) =>{
          console.log('Sucesso!', data);
          this.loading = false;
-        alert('Perfil atualizado com sucesso!')
+       // alert('Perfil atualizado com sucesso!')
         //window.location.reload();
 
       }
