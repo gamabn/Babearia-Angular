@@ -1,21 +1,17 @@
 <div class="container">
 
-  <div class="containerH1">
-   @if(visible){
+  <div>
     <h1>Cadastre de barbeiros</h1>
-   }@else {
-    <h1>Editar Barbeiros</h1>
-   }
   </div>
 
    <div class="container-button">
-    <div class="button-app" [class.active]="visible">
+    <div class="button-app">
       <button
       (click)="visibleTrue()"
       >Barbeiros</button>
     </div>
 
-    <div class="button-app" [class.active]="!visible">
+    <div class="button-app">
       <button
       (click)="visibleFalse()"
       >Editar Barbeiros</button>
@@ -23,8 +19,7 @@
    </div>
 
    @if(visible){
-
-    <section> <!-- Formulário para Cadastrar ou Editar -->
+    <section>
 
     <form [formGroup]="form">
        <div>
@@ -54,24 +49,16 @@
          type="text">
       </div>
 
-      <button type="submit" (click)="onSubmit()">{{ editingBarber ? 'Salvar Alterações' : 'Cadastrar' }}</button>
+
 
     </form>
   </section>
    }@else {
-     <section> <!-- Lista de barbeiros para edição -->
-      <h2>Selecione um barbeiro para editar</h2>
-      @for(barbeiro of barbeiros; track barbeiro.id) {
-        <div class="barbeiro-item">
-          <img [src]="barbeiro.image_url" alt="Foto de {{ barbeiro.name }}">
-          <span>{{ barbeiro.name }} - {{ barbeiro.phone }}</span>
-          <button (click)="selectBarberToEdit(barbeiro)">Editar</button>
-        </div>
-      } @empty {
-        <p>Nenhum barbeiro cadastrado.</p>
-      }
-     </section>
+    <div>
+      <h2>Nao tem Barbeiro</h2>
+    </div>
    }
 
 
 </div>
+
