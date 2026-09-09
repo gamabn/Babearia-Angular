@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, Observable, of, tap } from 'rxjs';
-import { CadastroModel } from '../../features/auth/models/cadastro-model';
+import { CadastroModel, BarberShopResponse } from '../../features/auth/models/cadastro-model';
 import { isPlatformBrowser } from '@angular/common';
 
 
@@ -11,7 +11,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class UserStore {
   // private userSubject = new BehaviorSubject<any | null>(null);
    private baseUrl = 'http://localhost:3333';
-   private userSubject = new BehaviorSubject<CadastroModel | null>(null);
+   private userSubject = new BehaviorSubject<BarberShopResponse | null>(null);
    user$ = this.userSubject.asObservable();
 
 
@@ -24,11 +24,11 @@ export class UserStore {
     //    error: () => this.clear()
     //  });
    // }
-   setUser(user: CadastroModel | null) {
+   setUser(user: BarberShopResponse | null) {
     this.userSubject.next(user);
   }
 
-  loadUser(): Observable<CadastroModel | null> {
+  loadUser(): Observable<BarberShopResponse | null> {
   if (!isPlatformBrowser(this.platformId)) {
     return of(null);
   }
@@ -38,7 +38,7 @@ export class UserStore {
     return of(null);
   }
 
-  return this.http.get<CadastroModel>(`${this.baseUrl}/user/detail`).pipe(
+  return this.http.get<BarberShopResponse>(`${this.baseUrl}/user/detail`).pipe(
     tap(user => this.setUser(user)),
     catchError(() => {
       this.clear();

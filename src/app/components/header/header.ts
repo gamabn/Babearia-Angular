@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UserStore } from '../../core/services/user-store';
-import { CadastroModel } from '../../features/auth/models/cadastro-model';
+import { CadastroModel ,BarberShopResponse } from '../../features/auth/models/cadastro-model';
 import { NgIconsModule } from '@ng-icons/core';
 import { provideIcons } from '@ng-icons/core';
 import { Router, NavigationEnd, RouterModule } from '@angular/router';
@@ -46,10 +46,11 @@ menuAberto = false;
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         this.menuAberto = false;
+       
       });
   }
 
-  user: CadastroModel | null = null;
+  user: BarberShopResponse | null = null;
 
 irPara(rota: string) {
   this.router.navigate([rota]);

@@ -2,8 +2,8 @@
 
   <div class="header-p">
     <div class="header-p2">
-      <img [src]="getAvatar(user?.image_url)" alt="">
-      <h1>{{ user?.name }}</h1>
+      <img [src]="getAvatar(user?.barbershop?.image_url)" alt="">
+      <h1>{{ user?.barbershop?.name}}</h1>
     </div>
 
     <!-- BOTÃO DE ABRIR -->
@@ -46,6 +46,13 @@
     <a (click)="irPara('/app/barbeiros')">
        <span>
          <ng-icon name="ionConstruct" size="24" color="#000"></ng-icon>
+      </span>
+    </a>
+
+
+    <a (click)="irPara('/app/criar-service')">
+       <span>
+         <ng-icon name="ionBuildOutline" size="24" color="#000"></ng-icon>
       </span>
     </a>
 

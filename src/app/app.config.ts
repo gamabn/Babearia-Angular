@@ -9,7 +9,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 
 import { provideIcons } from '@ng-icons/core';
 //import { ionListSharp } from '@ng-icons/core/ionicons-sharp';
-import { ionAdd, ionMenu, ionClose, ionBarChart,ionConstruct, ionLogInOutline, ionPersonCircleOutline, ionPower,ionCut} from '@ng-icons/ionicons';
+import { ionAdd, ionMenu, ionClose, ionBarChart,ionConstruct, ionLogInOutline, ionPersonCircleOutline, ionPower,ionCut, ionBuildOutline} from '@ng-icons/ionicons';
 import { UserStore } from './core/services/user-store';
 import { firstValueFrom } from 'rxjs';
 
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])), // 2. Adicione aqui
      provideIcons({
         ionAdd, ionMenu, ionClose,ionBarChart, ionConstruct, ionLogInOutline, ionPersonCircleOutline, ionPower,
-        ionCut
+        ionCut, ionBuildOutline
 
 
     }),

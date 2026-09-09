@@ -46,6 +46,12 @@ export const routes: Routes = [
             .then(m => m.Financas)
       },
       {
+        path: 'criar-service',
+        loadComponent: () =>
+          import('./dashboard/pages/criar-service/criar-service')
+            .then(m => m.CriarService)
+      },
+      {
         path: 'barbeiros',
         loadComponent: () =>
           import('./dashboard/pages/barbeiros/barbeiros')

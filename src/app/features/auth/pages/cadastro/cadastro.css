@@ -1,5 +1,6 @@
 .container{
   display: flex;
+  
   flex-direction: row;
   align-items: center;
   background-color: black;
@@ -10,7 +11,7 @@
 
 }
 .container-box{
-  background-image: url('./../../../../../../public/barberBackNew.jpg');
+  background-image: url('./../../../../../../public/BabaYagaSystem.png');
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
@@ -87,6 +88,21 @@ a{
  }
 @media screen and (max-width: 576px){
 
+.container{
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 15px;
+ 
+}
+ h1{
+    color: #fff;
+    font-size: 25px;
+    margin-top: 35px;
+   
+}
 
  .container-box{
   display: none;

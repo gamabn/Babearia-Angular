@@ -63,8 +63,8 @@
       <h2>Selecione um barbeiro para editar</h2>
       @for(barbeiro of barbeiros; track barbeiro.id) {
         <div class="barbeiro-item">
-          <img [src]="barbeiro.image_url" alt="Foto de {{ barbeiro.name }}">
-          <span>{{ barbeiro.name }} - {{ barbeiro.phone }}</span>
+          <img [src]="barbeiro.img_url" alt="Foto de {{ barbeiro.name }}">
+          <span>{{ barbeiro.name }} - {{ barbeiro.barber_phone }}</span>
           <button (click)="selectBarberToEdit(barbeiro)">Editar</button>
         </div>
       } @empty {

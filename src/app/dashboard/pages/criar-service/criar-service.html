@@ -1,0 +1,35 @@
+<div class="container">
+
+    <h1>Adicione seus serviços de barbearia</h1>
+
+    <section>
+        <form class="formulario" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="form-input">
+                <label for="">Nome do serviço</label>
+                <input
+                    formControlName="name"
+                    type="text"
+                   class="input-grande">
+            </div>
+
+            <div class="form-input">
+                <label for="">Data do serviço</label>
+                <input
+                    formControlName="description"
+                    type="datetime-local"
+                    class="input-grande">
+            </div>
+
+            <div class="form-input">
+                <label for="">Preço do serviço</label>
+                <input
+                    formControlName="price"
+                    type="text"
+                    class="input-grande">
+            </div>
+
+            <button type="submit" [disabled]="form.invalid">Adicionar Serviço</button>
+        </form>
+
+    </section>
+</div>
