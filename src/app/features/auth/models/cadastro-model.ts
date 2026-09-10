@@ -15,7 +15,15 @@ export interface BarberShopResponse {
   barbershop: BarberShopProps;
   subscription: SubscriptionProps;
 }
-
+export interface  BarberProps{
+    id: string;
+    name: string;   
+    barber_phone: string;
+    img_url: string;
+    public_id: string;
+    barbearia_id: string;
+    
+}
 
 export interface BarberShopProps{
     id?: string;
@@ -35,4 +43,16 @@ export interface SubscriptionProps {
   end_date: string | null;
   trial_end_date: string;
   days_left: number;
+}
+
+export interface ServiceProps{
+    id: string;
+    name: string;
+    duration: {
+      hours: number;
+      minutes: number;
+      seconds: number;
+    }
+    price: number;
+   
 }

@@ -4,18 +4,19 @@
   display: block;
   flex-direction: column;
   overflow-y:auto;
-  background-color: rgb(43, 40, 40);
+  background-color: rgb(255, 255, 255);
   padding: 20px;
+  color:#000;
 }
 
 h1{
-  color: #fff;
+  color: #000;
   font-size:x-large;
   margin: 0 auto;
   text-align: center;
 }
 h2{
-  color: #fff;
+  color: #000;
   font-size: large;
   margin: 0 auto;
   text-align: center;
@@ -51,23 +52,25 @@ img{
   padding: 10px;
   margin: 10px;
 
-
 }
 
 .button-app{
   padding: 10px;
+  color:#000;
   border-radius: 10px;
-  background-color: #4a4a4a; /* Cor padrão (inativo) */
+  border: 1px solid #393a3a;
+ /* background-color: #4a4a4a; /* Cor padrão (inativo) */
   transition: background-color 0.3s ease-in-out;
 }
 
 .button-app.active {
   background-color: #007bff; /* Cor do botão ativo */
+  color: #fff;
 }
 button{
   border: none;
   background-color: transparent;
-  color: white;
+  /*color: black;*/
   font-size: medium;
   cursor: pointer;
 
@@ -78,5 +81,5 @@ button{
   gap: 15px;
   padding: 10px;
   border-bottom: 1px solid #444;
-  color: white;
+  color: #000;
 }

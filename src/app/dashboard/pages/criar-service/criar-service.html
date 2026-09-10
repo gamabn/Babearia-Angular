@@ -2,8 +2,31 @@
 
     <h1>Adicione seus serviços de barbearia</h1>
 
-    <section>
-        <form class="formulario" [formGroup]="form" (ngSubmit)="submit()">
+    <section class="container-barbeiros">
+        <h2>Barbeiros cadastrados</h2>
+        <div class="barbeiros">
+            @for(barbeiro of barbeiros; track barbeiro.id){
+                
+                 <div class="barbeiro-card">
+                    <img class="barbeiro-img" [src]="barbeiro.img_url" alt="">
+                  <div class="barbeiro-text">
+                    <h3>{{barbeiro.name}}</h3>
+                
+                    <h3>{{barbeiro.barber_phone}}</h3>
+                  </div>
+                    
+                </div>              
+
+            }@empty {
+                <h2>Nenhum barbeiro cadastrado!</h2>
+            }
+                
+        </div>
+
+    </section>
+    <section class="container-form">
+        <h2>Adicionar Serviço</h2>
+   <form [formGroup]="form" (ngSubmit)="submit()">
             <div class="form-input">
                 <label for="">Nome do serviço</label>
                 <input
@@ -16,7 +39,7 @@
                 <label for="">Data do serviço</label>
                 <input
                     formControlName="description"
-                    type="datetime-local"
+                    type="time"
                     class="input-grande">
             </div>
 
