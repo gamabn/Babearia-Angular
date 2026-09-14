@@ -1,58 +1,92 @@
 <div class="container">
+  <h1>Adicione seus serviços de barbearia</h1>
 
-    <h1>Adicione seus serviços de barbearia</h1>
+  @if (idModal) {
+    <div class="modal-trash">
+      <app-modal-trash (closeModal)="handleCloseModal()" [serviceId]="idModal"></app-modal-trash>
+    </div>
+  }
 
-    <section class="container-barbeiros">
-        <h2>Barbeiros cadastrados</h2>
-        <div class="barbeiros">
-            @for(barbeiro of barbeiros; track barbeiro.id){
-                
-                 <div class="barbeiro-card">
-                    <img class="barbeiro-img" [src]="barbeiro.img_url" alt="">
-                  <div class="barbeiro-text">
-                    <h3>{{barbeiro.name}}</h3>
-                
-                    <h3>{{barbeiro.barber_phone}}</h3>
-                  </div>
-                    
-                </div>              
+  <section class="container-barbeiros">
+    <h2>Barbeiros cadastrados</h2>
+    <div class="barbeiros">
+      @for (barbeiro of barbeiros; track barbeiro.id) {
+        <button
+          (click)="handleBarber(barbeiro.id)"
+          class="barbeiro-card"
+          [class.active]="barbeiroId === barbeiro.id"
+        >
+          <img class="barbeiro-img" [src]="barbeiro.img_url" alt="" />
+          <div class="barbeiro-text">
+            <h3>{{ barbeiro.name }}</h3>
 
-            }@empty {
-                <h2>Nenhum barbeiro cadastrado!</h2>
-            }
-                
-        </div>
+            <h3>{{ barbeiro.barber_phone }}</h3>
+          </div>
+        </button>
+      } @empty {
+        <h2>Nenhum barbeiro cadastrado!</h2>
+      }
+    </div>
+    <div>
+      <h2>Serviços cadastrados</h2>
+      <div class="container-service">
+        @for (service of serviceBarber; track service.id) {
+          <div class="container-serviceItem">
+            <div class="service-client">
+              <p>
+                {{ service.name }}
+              </p>
 
-    </section>
+              <span>
+                <lucide-icon
+                  [img]="DollarSignIcon"
+                  class="my-icon"
+                  color="#008000"
+                  [size]="18"
+                ></lucide-icon>
+                {{ service.price }}
+              </span>
+            </div>
+
+            <div class="button-service">
+              <button (click)="handlOpenModal(service.id)">
+                <lucide-icon
+                  [img]="trashIcon"
+                  class="my-icon"
+                  color="#ff0000"
+                  [size]="25"
+                ></lucide-icon>
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  @if (barbeiroId) {
     <section class="container-form">
+      <div>
         <h2>Adicionar Serviço</h2>
-   <form [formGroup]="form" (ngSubmit)="submit()">
-            <div class="form-input">
-                <label for="">Nome do serviço</label>
-                <input
-                    formControlName="name"
-                    type="text"
-                   class="input-grande">
-            </div>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="form-input">
+            <label for="">Nome do serviço</label>
+            <input formControlName="name" type="text" class="input-grande" />
+          </div>
 
-            <div class="form-input">
-                <label for="">Data do serviço</label>
-                <input
-                    formControlName="description"
-                    type="time"
-                    class="input-grande">
-            </div>
+          <div class="form-input">
+            <label for="">Data do serviço</label>
+            <input formControlName="description" type="time" class="input-grande" />
+          </div>
 
-            <div class="form-input">
-                <label for="">Preço do serviço</label>
-                <input
-                    formControlName="price"
-                    type="text"
-                    class="input-grande">
-            </div>
+          <div class="form-input">
+            <label for="">Preço do serviço</label>
+            <input formControlName="price" type="text" class="input-grande" />
+          </div>
 
-            <button type="submit" [disabled]="form.invalid">Adicionar Serviço</button>
+          <button type="submit" [disabled]="form.invalid">Adicionar Serviço</button>
         </form>
-
+      </div>
     </section>
+  }
 </div>

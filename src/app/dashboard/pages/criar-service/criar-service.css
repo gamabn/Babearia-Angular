@@ -1,121 +1,221 @@
 .container {
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    flex-direction: column;
-    overflow-y:auto;
-    background-color: rgb(255, 250, 250);
-    padding: 20px;
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  position: relative;
+  flex-direction: column;
+  overflow-y: auto;
+  background-color: rgb(255, 250, 250);
+  padding: 20px;
 }
+
+.container-form {
+  display: flex;
+  border: 1px #000 solid;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.modal-trash {
+}
+
+.container-service {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  margin: 5px 0 19px 0;
+  border-radius: 5px;
+}
+
+.container-serviceItem {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border: 1px solid #000;
+  padding: 8px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+
+.container-serviceItem p {
+  color: #000;
+  font-size: medium;
+  font-weight: bold;
+  padding-right: 8px;
+}
+
+.container-serviceItem span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #008000;
+  font-weight: bold;
+  font-size: medium;
+}
+
+.container-serviceItem button {
+  text-decoration: none;
+
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.button-service {
+  display: flex;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.service-client {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 h1 {
-    color: #000;
-    font-size: x-large;
-    margin: 0 auto;
-    text-align: center;
-    font-weight:bold;
-    margin-bottom: 20px;
+  color: #000;
+  font-size: x-large;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
+
 h2 {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
   align-items: center;
   margin: 0 auto;
   font-weight: bolder;
   font-size: x-large;
-}
-form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto;
-    width: 100%;
-    color: #000;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    margin-bottom: 10px;
-    border:1px solid gray;
-    padding: 20px;
-    border-radius: 10px;
-}
-.form-input{
-    display: flex;
-    width: 100%;  
-    color: #000;
-    flex-direction: column;
-  
-    margin-bottom: 10px;
-}
-label{
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-input{
-   /* border: none;*/
-    border-bottom: 1px solid gray;
-    padding: 4px;
-    border-radius: 8px;
-    width: 100%;
-    height: 50px;
-    text-align: start;
-    
+  color: #000;
 }
 
-button{
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #4a4a4a; /* Cor padrão (inativo) */
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  width: 100%;
+  color: #000;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.input-grande{
-     font-size: 1.25rem;       /* Aumenta o tamanho da letra/números (ex: 20px) */
-    padding: 10px 14px;       /* Dá um espaço interno para o texto respirar */
-    width: 100%;              /* Faz o input ocupar toda a largura da div pai */
-    max-width: 350px;         /* Limita a largura máxima (equivalente ao efeito do size="40") */
-    box-sizing: border-box;   /* Garante que as bordas fiquem alinhadas corretamente */
+.form-input {
+  display: flex;
+  width: 100%;
+  color: #000;
+  flex-direction: column;
+
+  margin-bottom: 10px;
 }
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input {
+  /* border: none;*/
+  border-bottom: 1px solid gray;
+  padding: 4px;
+  border-radius: 8px;
+  width: 100%;
+  height: 50px;
+  text-align: start;
+}
+
+button {
+  padding: 10px;
+  border-radius: 10px;
+  /* background-color: #4a4a4a; /* Cor padrão (inativo) */
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  /* transition: background-color 0.3s ease;*/
+}
+
+.input-grande {
+  font-size: 1.25rem; /* Aumenta o tamanho da letra/números (ex: 20px) */
+  padding: 10px 14px; /* Dá um espaço interno para o texto respirar */
+  width: 100%; /* Faz o input ocupar toda a largura da div pai */
+  max-width: 350px; /* Limita a largura máxima (equivalente ao efeito do size="40") */
+  box-sizing: border-box; /* Garante que as bordas fiquem alinhadas corretamente */
+}
+
 .barbeiros {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content:space-around;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px;
 }
+
 .barbeiro-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-   
-    padding: 10px;
-    border: 1px solid gray;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
 .barbeiro-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: blue;
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: blue;
 }
+
 img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin: 0 5px 0 5px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 5px 0 5px;
 }
-.barbeiro-text{
-   display: flex;
-   flex-direction: column;
-   font-size: 15px;
-   font-weight: 400;
-   padding: 5px;
+
+.barbeiro-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 5px;
+}
+
+.barbeiro-card.active {
+  background-color: rgb(9, 33, 241);
+}
+
+@media screen and (max-width: 768px) {
+  .container-form {
+    flex-direction: column;
+    overflow: auto;
+  }
+
+  .container-service {
+    flex-direction: column;
+  }
 }
