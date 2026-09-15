@@ -27,47 +27,57 @@
         <h2>Nenhum barbeiro cadastrado!</h2>
       }
     </div>
-    <div>
-      <h2>Serviços cadastrados</h2>
-      <div class="container-service">
-        @for (service of serviceBarber; track service.id) {
-          <div class="container-serviceItem">
-            <div class="service-client">
-              <p>
-                {{ service.name }}
-              </p>
-
-              <span>
-                <lucide-icon
-                  [img]="DollarSignIcon"
-                  class="my-icon"
-                  color="#008000"
-                  [size]="18"
-                ></lucide-icon>
-                {{ service.price }}
-              </span>
-            </div>
-
-            <div class="button-service">
-              <button (click)="handlOpenModal(service.id)">
-                <lucide-icon
-                  [img]="trashIcon"
-                  class="my-icon"
-                  color="#ff0000"
-                  [size]="25"
-                ></lucide-icon>
-              </button>
-            </div>
-          </div>
-        }
-      </div>
-    </div>
   </section>
 
-  @if (barbeiroId) {
-    <section class="container-form">
-      <div>
-        <h2>Adicionar Serviço</h2>
+  <div class="container-secundario">
+    @if (!serviceBarber.length) {
+      <div>Selecione um barbeiro para ver o serviço</div>
+    } @else {
+      <!---- <h2>Serviços cadastrados</h2>-->
+
+      <div class="container-all">
+        <h2>Serviços cadastrados</h2>
+        <div class="container-service">
+          @for (service of serviceBarber; track service.id) {
+            <div class="container-serviceItem">
+              <div class="service-client">
+                <p>
+                  {{ service.name }}
+                </p>
+
+                <span>
+                  <lucide-icon
+                    [img]="DollarSignIcon"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="18"
+                  ></lucide-icon>
+                  {{ service.price }}
+                </span>
+              </div>
+
+              <div class="button-service">
+                <button (click)="handlOpenModal(service.id)">
+                  <lucide-icon
+                    [img]="trashIcon"
+                    class="my-icon"
+                    color="#ff0000"
+                    [size]="25"
+                  ></lucide-icon>
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    @if (barbeiroId) {
+      <section class="container-form">
+        <div>
+          <h2>Adicionar Serviço</h2>
+        </div>
+
         <form [formGroup]="form" (ngSubmit)="submit()">
           <div class="form-input">
             <label for="">Nome do serviço</label>
@@ -86,7 +96,7 @@
 
           <button type="submit" [disabled]="form.invalid">Adicionar Serviço</button>
         </form>
-      </div>
-    </section>
-  }
+      </section>
+    }
+  </div>
 </div>

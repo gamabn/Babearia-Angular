@@ -1,44 +1,90 @@
 .container {
   width: 100vw;
   height: 100vh;
-  display: block;
+  display: flex;
   position: relative;
   flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
   overflow-y: auto;
   background-color: rgb(255, 250, 250);
   padding: 20px;
 }
 
+.container-serviceItem:first-child,
+.container-serviceItem:nth-child(2) {
+  margin-right: 10px;
+}
+
 .container-form {
   display: flex;
-  border: 1px #000 solid;
+  flex-direction: column;
+  align-items: stretch;
+
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.container-form,
+form {
+  width: 100%;
+}
+.container-form h2 {
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  color: #000;
+  text-align: start;
+  padding: 10px;
+}
+
+.container-form button {
+  background-color: #00ff;
+  width: 100%;
+  color: #fff;
+  font-size: 15px;
+}
+
+.container-secundario {
+  display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  align-items: start;
+  justify-content: space-around;
+  width: 100%;
+  padding: 10px;
 }
 
 .modal-trash {
+}
+.container-all {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 100%;
+  width: 100%;
+  border-right: 2px solid #322e2d;
 }
 
 .container-service {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+  box-shadow: border-box;
   width: 100%;
   height: 100%;
   padding: 8px;
   margin: 5px 0 19px 0;
-  border-radius: 5px;
 }
 
 .container-serviceItem {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  height: 80px;
+
   border: 1px solid #000;
   padding: 8px;
-  margin-left: 10px;
-  margin-bottom: 15px;
+
   border-radius: 10px;
 }
 
@@ -100,21 +146,18 @@ h2 {
   color: #000;
 }
 
+/*form {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  padding: 10px;
+  /* background-color: crimson;
+}*/
+
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  margin: 0 auto;
-  width: 100%;
-  color: #000;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  margin-bottom: 10px;
-  padding: 20px;
-  border-radius: 10px;
 }
 
 .form-input {
@@ -122,24 +165,34 @@ form {
   width: 100%;
   color: #000;
   flex-direction: column;
-
+  align-items: stretch;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
+input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border: 1px solid gray;
+  padding: 8px;
+  border-radius: 8px;
+}
 label {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-input {
-  /* border: none;*/
+/*input {
+  border: none;
   border-bottom: 1px solid gray;
   padding: 4px;
   border-radius: 8px;
   width: 100%;
   height: 50px;
   text-align: start;
-}
+  width: 100%;
+}*/
 
 button {
   padding: 10px;
@@ -150,14 +203,23 @@ button {
   cursor: pointer;
   /* transition: background-color 0.3s ease;*/
 }
-
-.input-grande {
-  font-size: 1.25rem; /* Aumenta o tamanho da letra/números (ex: 20px) */
-  padding: 10px 14px; /* Dá um espaço interno para o texto respirar */
-  width: 100%; /* Faz o input ocupar toda a largura da div pai */
-  max-width: 350px; /* Limita a largura máxima (equivalente ao efeito do size="40") */
-  box-sizing: border-box; /* Garante que as bordas fiquem alinhadas corretamente */
+.input-grande,
+input {
+  width: 100% !important;
+  box-sizing: border-box; /* Impede que o padding estoure a largura */
+  border: none;
+  border: 1px solid gray;
+  padding: 8px;
+  border-radius: 8px;
 }
+
+/*.input-grande {
+  font-size: 1.25rem; /* Aumenta o tamanho da letra/números (ex: 20px) 
+padding: 10px 14px; /* Dá um espaço interno para o texto respirar 
+width: 100%; /* Faz o input ocupar toda a largura da div pai 
+max-width: 350px; /* Limita a largura máxima (equivalente ao efeito do size="40") 
+box-sizing: border-box; /* Garante que as bordas fiquem alinhadas corretamente */
+/*}*/
 
 .barbeiros {
   display: flex;
@@ -212,7 +274,23 @@ img {
 @media screen and (max-width: 768px) {
   .container-form {
     flex-direction: column;
-    overflow: auto;
+    height: 100%;
+  }
+
+  .container-secundario {
+    flex-direction: column;
+    width: 100%;
+  }
+  .container-all {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #322e2d;
+  }
+  .container-serviceItem {
+    height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
   }
 
   .container-service {
