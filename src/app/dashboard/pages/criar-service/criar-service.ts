@@ -13,6 +13,8 @@ import { BarberService } from '../../../core/services/barber-service';
 import { ServiceProps } from '../../../features/auth/models/cadastro-model';
 import { LucideAngularModule, DollarSign, Trash } from 'lucide-angular';
 import { ModalTrash } from '../../../components/modal-trash/modal-trash';
+import { CriarServiceBarber } from '../../../core/services/criar-service-barber';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-criar-service',
@@ -24,6 +26,7 @@ export class CriarService {
   constructor(
     private barber: BarbeiroAll,
     private services: BarberService,
+    private createService: CriarServiceBarber,
   ) {}
 
   barbeiros: BarberProps[] = [];
@@ -35,10 +38,17 @@ export class CriarService {
   idModal: string | null = null;
 
   form = new FormGroup({
+    idBarberS: new FormControl('', [Validators.required]), // adicionado
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    description: new FormControl('', [Validators.required, Validators.minLength(10)]),
     price: new FormControl('', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
+    duration: new FormControl('', [Validators.required, Validators.minLength(1)]),
   });
+
+  selecionarBarbeiro(id: string) {
+    this.barbeiroId = id;
+    console.log('Verdadeiro id', id);
+    this.form.patchValue({ idBarberS: id }); // insere o ID no formulário
+  }
 
   ngOnInit() {
     this.barber.barbeiros().subscribe({
@@ -54,12 +64,31 @@ export class CriarService {
   }
 
   submit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    console.log('Dados do formulario', this.form.value);
 
-    const { name, description, price } = this.form.value;
+    // if (this.form.invalid) {
+    // this.form.markAllAsTouched();
+    // return;
+    //}
+
+    //  const { name, price, duration, barberId } = this.form.value;
+
+    const payload = {
+      ...this.form.value,
+      barberId: this.barbeiroId, // injeta a variável da classe no objeto final
+    };
+
+    console.log('Dados enviados:', payload);
+
+    //  this.createService.createServiceId(data).subscribe({
+    //  next: (data) => {
+    //    console.log('Serviço de um barbeiro', data);
+    //   },
+    //   error: (err) => {
+    //    console.log('Mensagem detalhada do servidor:', err.error);
+    //   console.error('Status:', err.status);
+    //  },
+    //  });
   }
 
   handlOpenModal(id: string) {
@@ -77,6 +106,8 @@ export class CriarService {
 
     console.log('Id do barbeiro', this.barbeiroId);
 
+    this.selecionarBarbeiro(id);
+
     this.services.handleService(id).subscribe({
       next: (data) => {
         console.log('Serviços do barbeiro', data);
@@ -87,5 +118,17 @@ export class CriarService {
         console.error('Status:', err.status);
       },
     });
+  }
+
+  createServiceIdBarber(data: ServiceProps) {
+    //this.createService.createServiceId(data).subscribe({
+    // next: (data) => {
+    //   console.log('Serviço de um barbeiro', data);
+    // },
+    // error: (err) => {
+    //  console.log('Mensagem detalhada do servidor:', err.error);
+    //  console.error('Status:', err.status);
+    // },
+    // });
   }
 }
