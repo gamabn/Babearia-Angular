@@ -79,24 +79,33 @@
         </div>
 
         <form [formGroup]="form" (ngSubmit)="submit()">
-          <input type="hidden" formControlName="idbarberS" />
+          <input type="hidden" formControlName="idBarberS" />
 
           <div class="form-input">
             <label for="">Nome do serviço</label>
             <input formControlName="name" type="text" class="input-grande" />
+            <div style="color: brown; padding: 10px" *ngIf="mostrarErro('name', 'required')">
+              Nome é obrigatório
+            </div>
           </div>
 
           <div class="form-input">
             <label for="">Duraçao do serviço</label>
             <input formControlName="duration" type="time" class="input-grande" />
+            <div style="color: brown; padding: 10px" *ngIf="mostrarErro('name', 'required')">
+              Duraçao é obrigatório
+            </div>
           </div>
 
           <div class="form-input">
             <label for="">Preço do serviço</label>
             <input formControlName="price" type="text" class="input-grande" />
+            <div style="color: brown; padding: 10px" *ngIf="mostrarErro('name', 'required')">
+              Preço é obrigatório
+            </div>
           </div>
 
-          <button type="submit">Adicionar Serviço</button>
+          <button type="submit">{{ loading ? 'carregando...' : 'Adicionar serviço' }}</button>
         </form>
       </section>
     }

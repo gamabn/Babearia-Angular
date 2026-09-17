@@ -36,6 +36,7 @@ export class CriarService {
   readonly DollarSignIcon = DollarSign;
   readonly trashIcon = Trash;
   idModal: string | null = null;
+  loading: boolean = false;
 
   form = new FormGroup({
     idBarberS: new FormControl('', [Validators.required]), // adicionado
@@ -63,32 +64,41 @@ export class CriarService {
     });
   }
 
+  mostrarErro(campo: string, erro: string): boolean {
+    const control = this.form.get(campo);
+    return !!(control && control.hasError(erro) && (control.touched || control.dirty));
+  }
+
   submit() {
     console.log('Dados do formulario', this.form.value);
 
-    // if (this.form.invalid) {
-    // this.form.markAllAsTouched();
-    // return;
-    //}
+    this.loading = true;
 
-    //  const { name, price, duration, barberId } = this.form.value;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
-    const payload = {
-      ...this.form.value,
-      barberId: this.barbeiroId, // injeta a variável da classe no objeto final
-    };
+    const { name, price, duration, idBarberS } = this.form.value;
 
-    console.log('Dados enviados:', payload);
+    //=======================================
+    //  const payload = {
+    //   ...this.form.value,
+    //   barberId: this.barbeiroId, // injeta a variável da classe no objeto final
+    // };
 
-    //  this.createService.createServiceId(data).subscribe({
-    //  next: (data) => {
-    //    console.log('Serviço de um barbeiro', data);
-    //   },
-    //   error: (err) => {
-    //    console.log('Mensagem detalhada do servidor:', err.error);
-    //   console.error('Status:', err.status);
-    //  },
-    //  });
+    // console.log('Dados enviados:', payload);
+    //====================================================================
+
+    this.createService.createServiceId({ name, price, duration, barber_id: idBarberS }).subscribe({
+      next: (data) => {
+        console.log('Barbeiros carregados:', data);
+      },
+      error: (err) => {
+        console.log('Mensagem detalhada do servidor:', err.error);
+        console.error('Status:', err.status);
+      },
+    });
   }
 
   handlOpenModal(id: string) {

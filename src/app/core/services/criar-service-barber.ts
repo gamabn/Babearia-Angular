@@ -12,6 +12,6 @@ export class CriarServiceBarber {
 
   createServiceId(data: any) {
     console.log('Dados do Serviço', data);
-    // return this.http.get(`${this.baseUrl}/service`, data);
+    return this.http.post(`${this.baseUrl}/service`, data);
   }
 }
