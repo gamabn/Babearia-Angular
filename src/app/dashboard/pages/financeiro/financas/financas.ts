@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Barbeiros } from "../../barbeiros/barbeiros";
+import { Loading } from '../../../../components/loading/loading/loading';
 
 @Component({
   selector: 'app-financas',
-  imports: [Barbeiros],
+  imports: [Loading],
   templateUrl: './financas.html',
-  styleUrl: './financas.css'
+  styleUrl: './financas.css',
 })
-export class Financas {
-
-}
+export class Financas {}

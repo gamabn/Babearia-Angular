@@ -1,12 +1,14 @@
 <div class="container">
-  <h1>Adicione seus serviços de barbearia</h1>
-
   @if (idModal) {
     <div class="modal-trash">
       <app-modal-trash (closeModal)="handleCloseModal()" [serviceId]="idModal"></app-modal-trash>
     </div>
   }
 
+  @if (loading) {
+    <app-loading></app-loading>
+  }
+  <h1>Adicione seus serviços de barbearia</h1>
   <section class="container-barbeiros">
     <h2>Barbeiros cadastrados</h2>
     <div class="barbeiros">

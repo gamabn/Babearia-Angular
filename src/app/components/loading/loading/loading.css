@@ -1,0 +1,36 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  z-index: 100;
+}
+.loader {
+  /* Tamanho da circunferência */
+  width: 50px;
+  height: 50px;
+
+  /* Cria uma borda cinza clara em toda a volta */
+  border: 5px solid #f3f3f3;
+
+  /* Pinta apenas a parte de cima com a cor de destaque (o "arco") */
+  border-top: 5px solid #3498db;
+
+  /* Transforma o quadrado em um círculo perfeito */
+  border-radius: 50%;
+
+  /* Aplica a animação chamada "girar", que dura 1 segundo, é linear e infinita */
+  animation: girar 1s linear infinite;
+}
+
+/* Define os passos da animação */
+@keyframes girar {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -14,11 +14,18 @@ import { ServiceProps } from '../../../features/auth/models/cadastro-model';
 import { LucideAngularModule, DollarSign, Trash } from 'lucide-angular';
 import { ModalTrash } from '../../../components/modal-trash/modal-trash';
 import { CriarServiceBarber } from '../../../core/services/criar-service-barber';
-import { Console } from 'console';
+import { Loading } from '../../../components/loading/loading/loading';
 
 @Component({
   selector: 'app-criar-service',
-  imports: [FormsModule, ModalTrash, ReactiveFormsModule, CommonModule, LucideAngularModule],
+  imports: [
+    FormsModule,
+    Loading,
+    ModalTrash,
+    ReactiveFormsModule,
+    CommonModule,
+    LucideAngularModule,
+  ],
   templateUrl: './criar-service.html',
   styleUrl: './criar-service.css',
 })
@@ -52,9 +59,11 @@ export class CriarService {
   }
 
   ngOnInit() {
+    this.loading = true;
     this.barber.barbeiros().subscribe({
       next: (data) => {
         this.barbeiros = data; // Apenas carrega a lista de barbeiros
+        this.loading = false;
         console.log('Barbeiros carregados:', data);
       },
       error: (err) => {
@@ -92,6 +101,7 @@ export class CriarService {
 
     this.createService.createServiceId({ name, price, duration, barber_id: idBarberS }).subscribe({
       next: (data) => {
+        window.location.reload();
         console.log('Barbeiros carregados:', data);
       },
       error: (err) => {
@@ -130,15 +140,15 @@ export class CriarService {
     });
   }
 
-  createServiceIdBarber(data: ServiceProps) {
-    //this.createService.createServiceId(data).subscribe({
-    // next: (data) => {
-    //   console.log('Serviço de um barbeiro', data);
-    // },
-    // error: (err) => {
-    //  console.log('Mensagem detalhada do servidor:', err.error);
-    //  console.error('Status:', err.status);
-    // },
-    // });
-  }
+  // createServiceIdBarber(data: ServiceProps) {
+  //this.createService.createServiceId(data).subscribe({
+  // next: (data) => {
+  //   console.log('Serviço de um barbeiro', data);
+  // },
+  // error: (err) => {
+  //  console.log('Mensagem detalhada do servidor:', err.error);
+  //  console.error('Status:', err.status);
+  // },
+  // });
+  // }
 }
