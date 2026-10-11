@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guard/auth.guard';
+import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const routes: Routes = [
   // 🔓 LOGIN (rota pública)
