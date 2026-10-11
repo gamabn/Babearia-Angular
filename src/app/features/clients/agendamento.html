@@ -17,11 +17,33 @@
       <p>{{ barbearia()!.city }} - {{ barbearia()!.neighborhood }}</p>
     </div>
 
-    <section>
+    <section class="sessao">
       <div>
         <h2>Agende um serviço</h2>
-        <div>barbeiros disponiveis</div>
+        <div class="barbeiro-card">
+          @for (barber of barbeiros; track barber.id) {
+            <button
+              class="barbeiro-item"
+              [class.active]="barber.id === barbeiroItem?.id"
+              (click)="handleBarber(barber)"
+            >
+              <img class="barber-img" [src]="barber.img_url" alt="" />
+              <div>
+                <p>{{ barber.name }}</p>
+                <p>{{ barber.barber_phone }}</p>
+              </div>
+            </button>
+          }
+        </div>
       </div>
+    </section>
+
+    <section>
+      @if (barbeiroItem) {
+        <div>
+          <h2>Serviços</h2>
+        </div>
+      }
     </section>
 
     <!-- Aqui vem o form de agendamento -->

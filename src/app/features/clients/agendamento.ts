@@ -22,6 +22,7 @@ export class Agendamento implements OnInit {
   loading = signal(true);
   erro = signal<string | null>(null);
   barbeiros: BarberProps[] = [];
+  barbeiroItem: BarberProps | null = null;
 
   ngOnInit(): void {
     if (!this.idClients) {
@@ -31,6 +32,11 @@ export class Agendamento implements OnInit {
     }
     this.carregarBarbeiros();
     this.carregarBarbearia();
+  }
+
+  handleBarber(data: any) {
+    console.log('Barbeiro selecionado', data);
+    this.barbeiroItem = data;
   }
 
   carregarBarbeiros(): void {
