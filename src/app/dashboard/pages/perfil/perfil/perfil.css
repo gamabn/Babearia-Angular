@@ -1,13 +1,13 @@
-.container{
+.container {
   width: 100vw;
   height: 100vh;
   display: block;
   flex-direction: column;
-  overflow-y:auto;
-  background-color: rgb(43, 40, 40);
+  overflow-y: auto;
+  background-color: rgb(249, 248, 248);
   padding: 20px;
 }
-.loading{
+.loading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,24 +18,33 @@
   font-size: large;
   z-index: 100;
 }
-h1{
-  color: #fff;
+.container-h1 {
+  width: 100%;
+}
+
+.erro {
+  color: brown;
+  padding: 10px;
+  font-size: 0.875rem;
+}
+h1 {
+  color: #000;
   font-size: large;
   margin: 0 auto;
   text-align: center;
+  padding: 5px;
 }
 
-.form-input{
+.form-input {
   display: flex;
   width: 100%;
-  color: #fff;
+  color: #000;
   flex-direction: column;
   align-items: start;
   justify-content: center;
   margin-bottom: 10px;
-
 }
-.form-input input{
+.form-input input {
   border: none;
   border-bottom: 1px solid gray;
   padding: 8px;
@@ -43,7 +52,7 @@ h1{
   width: 100%;
 }
 
-.form-button{
+.form-button {
   display: flex;
   width: 100%;
   flex-direction: row;
@@ -55,11 +64,10 @@ h1{
   background-color: #00ff;
 }
 
-.form-button button{
+.form-button button {
   border: none;
   background-color: transparent;
   color: white;
   font-size: medium;
   cursor: pointer;
-
 }

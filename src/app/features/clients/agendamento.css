@@ -1,0 +1,46 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  align-items: center;
+  color: black;
+}
+
+.barbearia-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px;
+  border: 1px solid black;
+  border-radius: 8px;
+}
+
+.barbearia-header h1 {
+  color: blue;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.barbearia-header p {
+  color: rgb(59, 58, 58);
+  font-size: 16px;
+}
+.erro {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: red;
+  padding: 10px 0 10px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+  }
+  .barbearia-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

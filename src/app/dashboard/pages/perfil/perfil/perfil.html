@@ -1,108 +1,84 @@
 <div class="container">
-
-  @if(loading) {
+  <!---- @if (loading) {
     <div class="loading">
-    <h2>Carregando...</h2>
+      <h2>Carregando...</h2>
+    </div>
+  }-->
+
+  <div class="container-h1">
+    <h1>Editar sua conta</h1>
   </div>
-  }
-
-
-  <h1>Editar sua conta</h1>
 
   <div>
-    <form action="" [formGroup]="form" (ngSubmit)="submit()" >
-     <div class="form-input">
-          <label for="">Imagem da Barbearia</label>
-      <input type="file"
-      (change)="mudarImagem($event)">
-
-      @if(imagemPreview){
-        <img
-       [src]="imagemPreview"
-        alt="logo"
-       >
-
-      }
-     </div>
-
+    <form action="" [formGroup]="form" (ngSubmit)="submit()">
       <div class="form-input">
-          <label for="">Nome da barbearia</label>
+        <label for="">Imagem da Barbearia</label>
+        <input type="file" (change)="mudarImagem($event)" />
 
-      <input
-     formControlName="name"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('name', 'required')">
-        Nome é obrigatório
-      </div>
-      </div>
-
-       <div class="form-input">
-          <label for="">E-mail</label>
-      <input
-      formControlName="email"
-      type="text">
-       <div style="color: brown;padding: 10px;" *ngIf="validationErro('email', 'required')">
-        Nome é obrigatório
-      </div>
+        @if (imagemPreview) {
+          <img [src]="imagemPreview" alt="logo" />
+        }
       </div>
 
       <div class="form-input">
-          <label for="">Cidade</label>
-      <input
-      formControlName="city"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('city', 'required')">
-        Nome é obrigatório
-      </div>
+        <label for="">Nome da barbearia</label>
+        <input formControlName="name" id="name" name="name" type="text" />
+        @if (validationErro('name', 'required')) {
+          <div class="erro">Nome é obrigatório</div>
+        }
       </div>
 
       <div class="form-input">
-          <label for="">Bairro</label>
-      <input
-      formControlName="neighborhood"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('neighborhood', 'required')">
-        Nome é obrigatório
-      </div>
+        <label for="">E-mail</label>
+        <input formControlName="email" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('email', 'required')">
+          E-mail inválido
+        </div>
       </div>
 
       <div class="form-input">
-          <label for="">Rua</label>
-      <input
-      formControlName="street"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('street', 'required')">
-        Nome é obrigatório
-      </div>
+        <label for="">Cidade</label>
+        <input formControlName="city" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('city', 'required')">
+          Cidade é obrigatória
+        </div>
       </div>
 
       <div class="form-input">
-          <label for="">Número</label>
-      <input
-      formControlName="number"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('number', 'required')">
-        Nome é obrigatório
+        <label for="">Bairro</label>
+        <input formControlName="neighborhood" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('neighborhood', 'required')">
+          Bairro é obrigatório
+        </div>
       </div>
-      </div>
-
 
       <div class="form-input">
-          <label for="">Telefone</label>
-      <input
-      formControlName="phone"
-       type="text">
-        <div style="color: brown;padding: 10px;" *ngIf="validationErro('phone', 'pattern')">
-        Nome é obrigatório
-      </div>
+        <label for="">Rua</label>
+        <input formControlName="street" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('street', 'required')">
+          Rua é obrigatória
+        </div>
       </div>
 
+      <div class="form-input">
+        <label for="">Número</label>
+        <input formControlName="number" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('number', 'required')">
+          Número é obrigatório
+        </div>
+      </div>
 
+      <div class="form-input">
+        <label for="">Telefone</label>
+        <input formControlName="phone" type="text" />
+        <div style="color: brown; padding: 10px" *ngIf="validationErro('phone', 'pattern')">
+          Telefone é obrigatório
+        </div>
+      </div>
 
       <div class="form-button">
         <button type="submit" class="button">Salvar</button>
       </div>
-
     </form>
   </div>
 </div>

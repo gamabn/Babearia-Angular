@@ -67,6 +67,7 @@ export class CriarService {
         console.log('Barbeiros carregados:', data);
       },
       error: (err) => {
+        this.loading = false;
         console.log('Mensagem detalhada do servidor:', err.error);
         console.error('Status:', err.status);
       },

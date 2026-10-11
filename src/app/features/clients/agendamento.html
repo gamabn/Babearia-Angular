@@ -1,0 +1,29 @@
+<div class="container">
+  @if (loading()) {
+    <app-loading></app-loading>
+  }
+
+  @if (erro()) {
+    <div class="erro">
+      <h2>{{ erro() }}</h2>
+      <p>Confira o link que a barbearia enviou.</p>
+    </div>
+  }
+
+  @if (!loading() && barbearia()) {
+    <div class="barbearia-header">
+      <h1>{{ barbearia()!.name }}</h1>
+      <p>{{ barbearia()!.phone }}</p>
+      <p>{{ barbearia()!.city }} - {{ barbearia()!.neighborhood }}</p>
+    </div>
+
+    <section>
+      <div>
+        <h2>Agende um serviço</h2>
+        <div>barbeiros disponiveis</div>
+      </div>
+    </section>
+
+    <!-- Aqui vem o form de agendamento -->
+  }
+</div>
