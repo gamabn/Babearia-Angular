@@ -38,11 +38,79 @@
       </div>
     </section>
 
-    <section>
-      @if (barbeiroItem) {
-        <div>
-          <h2>Serviços</h2>
+    @if (serviceAllBarber) {
+      <section class="sessao-2">
+        <h2>
+          <span>
+            <lucide-icon [img]="ListFilter" class="my-icon" color="#00ff" [size]="18"></lucide-icon
+          ></span>
+          Selecione um serviço para agendar
+        </h2>
+        <div class="service-card">
+          @for (service of serviceAllBarber; track service.id) {
+            <button
+              [class.select]="service.id === serviceItem?.id"
+              class="serviceAll"
+              (click)="handleService({ service })"
+            >
+              <p>
+                <span>
+                  <lucide-icon
+                    [img]="Scissors"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="18"
+                  ></lucide-icon
+                ></span>
+                {{ service.name }}
+              </p>
+              <p>
+                <span>
+                  <lucide-icon
+                    [img]="DollarSign"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="18"
+                  ></lucide-icon
+                ></span>
+                {{ service.price }}
+              </p>
+              <p>
+                <span>
+                  <lucide-icon
+                    [img]="Clock"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="18"
+                  ></lucide-icon
+                ></span>
+                {{ service.duration.hours || '00' }}: {{ service.duration.minutes || '00' }}:
+                {{ service.duration.seconds || '00' }}
+              </p>
+            </button>
+          }
         </div>
+      </section>
+    }
+
+    <section class="sessao-3">
+      @if (serviceItem) {
+        <div>
+          <h2>
+            <span>
+              <lucide-icon
+                [img]="ListFilter"
+                class="my-icon"
+                color="#00ff"
+                [size]="18"
+              ></lucide-icon
+            ></span>
+            Selecione data e hora para
+          </h2>
+        </div>
+
+        <!-- O calendário só aparece se houver um serviço selecionado -->
+        <full-calendar [options]="calendarOptions"></full-calendar>
       }
     </section>
 
