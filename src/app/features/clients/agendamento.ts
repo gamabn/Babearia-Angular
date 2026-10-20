@@ -12,9 +12,12 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Agendamentos } from '../../core/services/getAgend/agendamentos';
+import { AgendamentoProps } from '../auth/models/cadastro-model';
+import { Status } from '../auth/models/cadastro-model';
 
 // 1. Importe o arquivo de tradução do português do Brasil
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
+import { title } from 'node:process';
 
 @Component({
   selector: 'app-agendamento',
@@ -42,6 +45,7 @@ export class Agendamento implements OnInit {
   serviceAllBarber: ServiceProps[] | null = null;
   serviceItem: ServiceProps | null = null;
   agendOcupation: any[] | null = null;
+  horario: string | null = null;
 
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek', // Exibe a semana com grade de horários
@@ -89,20 +93,57 @@ export class Agendamento implements OnInit {
     // Evento disparado quando o cliente/barbeiro clica em um horário vago
     select: this.handleDateSelect.bind(this),
     // Evento disparado ao clicar em um agendamento já existente
-    eventClick: this.handleEventClick.bind(this),
+    //=========================================
+    // eventClick: this.handleEventClick.bind(this),
+    //====================================================
     events: [], // Lista de agendamentos vinda da API
   };
 
   handleDateSelect(selectInfo: any) {
     const horarioInicio = selectInfo.startStr;
-    console.log('Horário selecionado:', horarioInicio);
-    // Abrir modal de confirmação de agendamento ou enviar formulário
+    const dataSelecionada = new Date(horarioInicio);
+    const agora = new Date();
+    console.log('Horário vago selecionado:', typeof horarioInicio);
+
+    // 3. Compara utilizando os milissegundos (.getTime()) para garantir precisão
+    if (dataSelecionada.getTime() < agora.getTime()) {
+      console.log('Tentativa de agendar em horário passado bloqueada.');
+      selectInfo.view.calendar.unselect(); // Limpa a seleção visual
+      return; // Interrompe a execução
+    }
+    this.horario = horarioInicio;
+    console.log('Horas selecionada', this.horario);
+
+    // 1. Pega a instância do calendário que disparou o clique
+    const calendarApi = selectInfo.view.calendar;
+    // Adicione aqui o alerta ou a abertura do seu modal de agendamento:
+
+    // 2. Remove o quadrado azul anterior (se o usuário clicar em outro horário)
+    const eventoAntigo = calendarApi.getEventById('temp-click');
+    if (eventoAntigo) {
+      eventoAntigo.remove();
+    }
+
+    // 3. Pinta o novo quadrado de azul imediatamente no clique!
+    calendarApi.addEvent({
+      id: 'temp-click',
+      title: 'Selecionado 🕒',
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      backgroundColor: '#0e45eb', // Sua cor azul
+      borderColor: '#0e45eb',
+    });
+
+    // Limpa a seleção cinza nativa para destacar apenas o seu bloco azul
+    calendarApi.unselect();
+
+    // Se você tiver um modal, pode abrir ele aqui embaixo normalmente:
+    // this.abrirModalCadastro(horarioInicio);
   }
 
-  handleEventClick(clickInfo: any) {
-    alert(`Agendamento selecionado: ${clickInfo.event.title}`);
-    // Detalhes do agendamento, opção de cancelar ou remarcar
-  }
+  // handleEventClick(clickInfo: any) {
+  // alert(`Você selecionou o horário para agendamento: ${clickInfo.event.title}`);
+  // }
 
   ngOnInit(): void {
     if (!this.idClients) {
@@ -117,21 +158,49 @@ export class Agendamento implements OnInit {
 
   carregarHorariosOcupados() {
     this.agendamentos.agendamentos(this.idClients).subscribe({
-      next: (data: any[]) => {
+      next: (data: AgendamentoProps[]) => {
         // Mapeia os dados da API para o formato que o FullCalendar exige (title, start, end)
-        const eventosMapeados = data.map((item) => {
+        const eventosMapeados = data.map((item: AgendamentoProps) => {
+          // 👀 Adicione este log para ver exatamente o que o backend está enviando no status
+          console.log(`ID: ${item.id} | Status recebido: "${item.status}"`);
           // Define uma cor baseada no status (opcional, para ficar visualmente legal)
-          let corEvento = '#2c3e50'; // Padrão
-          if (item.status === 'FINALIZADO') {
-            corEvento = '#27ae60'; // Verde para finalizados
+          const agora = new Date();
+          const dataAgendamento = new Date(item.date_agend);
+
+          let corEvento = '#2c3e50';
+          let corTexto = '#ffffff';
+
+          // Usamos toUpperCase() e trim() para evitar problemas com espaços ou letras minúsculas
+          const statusLimpo = item.status ? item.status.trim().toUpperCase() : '';
+
+          // 1. Se estiver FINALIZADO, pinta de preto fosco
+          if (statusLimpo === 'FINALIZADO') {
+            corEvento = '#1a1a1a';
+            corTexto = '#ffffff';
           }
+          // 2. Se estiver AGUARDANDO, você pode usar outra cor (ex: azul escuro original ou outra cor de sua preferência)
+          else if (statusLimpo === 'AGUARDANDO') {
+            corEvento = '#2c3e50'; // Mantém o tom padrão ou mude para outra cor se quiser diferenciar
+            corTexto = '#ffffff';
+          }
+          // 3. Se a data já passou e não foi finalizado/atendido
+          else if (dataAgendamento < agora) {
+            corEvento = '#e2e8f0'; // Cinza claro
+            corTexto = '#64748b';
+          }
+
+          // Lógica para verificar se o agendamento já passou da data/hora atual
+
           return {
             id: item.id,
-            title: `${item.client_name} - Barbeiro: ${item.barber_name} (${item.status})`,
+            //  title: `${item.client_name} - Barbeiro: ${item.barber_name} (${item.status})`,
+            // title: `${item.status}`,
             start: item.date_agend, // Mapeia o campo de início do backend
             end: item.date_finish, // Mapeia o campo de término do backend
             backgroundColor: corEvento,
-            borderColor: corEvento,
+            borderColor: corEvento === '#e2e8f0' ? '#cbd5e1' : corEvento,
+            textColor: corTexto,
+            // borderColor: corEvento,
             extendedProps: {
               // Guarda dados extras caso precise usar depois
               telefone: item.client_phone,
@@ -142,7 +211,12 @@ export class Agendamento implements OnInit {
         });
 
         // Atribui os eventos processados ao calendário
-        this.calendarOptions.events = eventosMapeados;
+        //  this.calendarOptions.events = eventosMapeados;
+        // 🔄 ESSA LINHA É A CHAVE: Recria o objeto e força o calendário a renderizar os eventos
+        this.calendarOptions = {
+          ...this.calendarOptions,
+          events: eventosMapeados,
+        };
       },
       error: (erro) => {
         console.log('Erro ao carregar horários agendados:', erro);

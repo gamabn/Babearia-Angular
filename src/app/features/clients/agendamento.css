@@ -137,12 +137,25 @@
   box-sizing: border-box;
 }
 
-::ng-deep .fc .fc-toolbar.fc-header-toolbar {
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-  text-align: center;
+/* Estilos globais para compactar os eventos em qualquer tamanho de tela */
+::ng-deep .fc-timegrid-event {
+  min-height: 14px !important;
+  max-height: 20px !important; /* Limita a altura máxima do bloco */
+  overflow: hidden !important;
+}
+
+::ng-deep .fc-timegrid-event .fc-event-main {
+  padding: 0 !important;
+  font-size: 0.7rem !important;
+}
+/* Remove o destaque amarelado do dia "Hoje" (current day) */
+::ng-deep .fc .fc-day-today {
+  background-color: transparent !important; /* Ou coloque a cor de fundo que preferir, ex: #ffffff */
+}
+
+/* Se quiser mudar o fundo geral das células de horário da grade */
+::ng-deep .fc .fc-timegrid-slot {
+  background-color: #ffffff; /* Deixa o fundo dos horários branco */
 }
 
 @media screen and (max-width: 768px) {
@@ -181,18 +194,24 @@
   ::ng-deep .fc .fc-toolbar.fc-header-toolbar {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     align-items: center;
     text-align: center;
   }
-  /* Ajusta o tamanho da fonte do título do mês/ano para não estourar a tela pequena */
-  ::ng-deep .fc .fc-toolbar-title {
-    font-size: 1.15rem !important;
+
+  ::ng-deep .fc .fc-toolbar-chunk {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
   }
 
-  /* Deixa os botões um pouco mais compactos e confortáveis para toque no celular */
+  ::ng-deep .fc .fc-toolbar-title {
+    font-size: 1.1rem !important;
+  }
+
   ::ng-deep .fc .fc-button {
-    padding: 6px 10px;
-    font-size: 0.85rem;
+    padding: 4px 8px;
+    font-size: 0.8rem;
   }
 }

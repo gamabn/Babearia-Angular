@@ -55,3 +55,24 @@ export interface ServiceProps {
   price: number;
   barberId: string | null;
 }
+
+export interface AgendamentoProps {
+  id: string;
+  client_id: string;
+  barber_id: string;
+  date_agend: string;
+  service_ids: string[];
+  date_finish?: string;
+  tipo: string;
+  status: Status;
+  client_phone?: string; // Adicionado (opcional)
+  total_price?: number; // Adicionado (opcional)
+}
+
+export enum Status {
+  agendado = 'AGENDADO',
+  em_atendimento = 'EM_ATENDIMENTO',
+  finalizado = 'FINALIZADO',
+  cancelado = 'CANCELADO',
+  aguardando = 'AGUARDANDO',
+}
