@@ -43,8 +43,18 @@ export interface SubscriptionProps {
   trial_end_date: string;
   days_left: number;
 }
-
 export interface ServiceProps {
+  id: string;
+  name: string;
+  duration: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
+  price: string; // vem como string '50.00'
+  barber_id: string | null; // snake_case, como vem da API
+}
+/*export interface ServiceProps {
   id: string;
   name: string;
   duration: {
@@ -54,7 +64,7 @@ export interface ServiceProps {
   };
   price: number;
   barberId: string | null;
-}
+}*/
 
 export interface AgendamentoProps {
   id: string;

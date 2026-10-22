@@ -39,7 +39,7 @@
     </section>
 
     @if (serviceAllBarber) {
-      <section class="sessao-2">
+      <section class="sessao-3">
         <h2>
           <span>
             <lucide-icon [img]="ListFilter" class="my-icon" color="#00ff" [size]="18"></lucide-icon
@@ -93,9 +93,9 @@
       </section>
     }
 
-    <section class="sessao-3">
-      @if (serviceItem) {
-        <div>
+    @if (serviceItem) {
+      <section class="sessao-3">
+        <div class="sessao-top">
           <h2>
             <span>
               <lucide-icon
@@ -111,8 +111,34 @@
 
         <!-- O calendário só aparece se houver um serviço selecionado -->
         <full-calendar [options]="calendarOptions"></full-calendar>
-      }
-    </section>
+      </section>
+    }
+
+    @if (horario) {
+      <section class="sessao-resumo">
+        <div>
+          <div class="sessao-top">
+            <H2>Resumodo agendamento</H2>
+          </div>
+          <!---- <pre>{{ serviceItem | json }}</pre> */} -->
+          <div class="service-item">
+            <p style="font-weight: 300; font-size: 15px">barbeiro</p>
+            <p style="font-weight: bolder; font-size: 16px">{{ barbeiroItem?.name }}</p>
+          </div>
+
+          <div style="margin-top: 10px">
+            <h2 style="text-align: center; font-size: 20px">Serviços</h2>
+            <p>serviço: {{ serviceItem?.name }}</p>
+            <p>
+              {{ (serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0') }}:
+              {{ (serviceItem?.duration?.minutes ?? 0).toString().padStart(2, '0') }}:
+              {{ (serviceItem?.duration?.seconds ?? 0).toString().padStart(2, '0') }}
+            </p>
+            <p>{{ serviceItem?.price }}</p>
+          </div>
+        </div>
+      </section>
+    }
 
     <!-- Aqui vem o form de agendamento -->
   }

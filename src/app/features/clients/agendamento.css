@@ -127,6 +127,12 @@
   gap: 5px;
 }
 
+.sessao-top {
+  text-align: center;
+  color: blue;
+  margin-bottom: 5px;
+}
+
 .sessao-3 {
   width: calc(100vw - 20px);
   margin: 20px 0 10px 0;
@@ -135,6 +141,21 @@
   padding: 16px;
   max-width: 100%;
   box-sizing: border-box;
+}
+.sessao-resumo {
+  width: 60%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: 1px solid #000;
+}
+.service-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid gray;
 }
 
 /* Estilos globais para compactar os eventos em qualquer tamanho de tela */

@@ -13,7 +13,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { Agendamentos } from '../../core/services/getAgend/agendamentos';
 import { AgendamentoProps } from '../auth/models/cadastro-model';
-import { Status } from '../auth/models/cadastro-model';
+import { JsonPipe } from '@angular/common';
 
 // 1. Importe o arquivo de tradução do português do Brasil
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
@@ -21,7 +21,7 @@ import { title } from 'node:process';
 
 @Component({
   selector: 'app-agendamento',
-  imports: [Loading, LucideAngularModule, FullCalendarModule],
+  imports: [Loading, LucideAngularModule, FullCalendarModule, JsonPipe],
   templateUrl: './agendamento.html',
   styleUrl: './agendamento.css',
 })
@@ -47,10 +47,26 @@ export class Agendamento implements OnInit {
   agendOcupation: any[] | null = null;
   horario: string | null = null;
 
+  get durationHours(): string {
+    return (this.serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0');
+  }
+
+  get durationMinutes(): string {
+    return (this.serviceItem?.duration?.minutes ?? 0).toString().padStart(2, '0');
+  }
+
+  get serviceName(): string {
+    return this.serviceItem?.name ?? '';
+  }
+
+  get servicePrice(): string {
+    return this.serviceItem?.price ?? '';
+  }
+
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek', // Exibe a semana com grade de horários
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
-
+    contentHeight: 400, // Altura da área de conteúdo
     // 2. Defina o idioma padrão e a lista de locales disponíveis
     locale: 'pt-br',
     locales: [ptBrLocale],
