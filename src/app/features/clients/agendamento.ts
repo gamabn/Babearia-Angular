@@ -5,7 +5,14 @@ import { Loading } from '../../components/loading/loading/loading';
 import { BarberProps, ServiceProps } from '../auth/models/cadastro-model';
 import { BarbeiroAll } from '../../core/services/barbeiros';
 import { BarberService } from '../../core/services/barber-service';
-import { LucideAngularModule, Scissors, DollarSign, Clock, ListFilter } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Scissors,
+  DollarSign,
+  Clock,
+  ListFilter,
+  CalendarDays,
+} from 'lucide-angular';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -14,14 +21,15 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { Agendamentos } from '../../core/services/getAgend/agendamentos';
 import { AgendamentoProps } from '../auth/models/cadastro-model';
 import { JsonPipe } from '@angular/common';
+import { ClienteLogin } from '../../components/client-login/cliente-login/cliente-login';
 
 // 1. Importe o arquivo de tradução do português do Brasil
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
-import { title } from 'node:process';
+import { AgendService } from '../../core/services/agendamento/agend-service';
 
 @Component({
   selector: 'app-agendamento',
-  imports: [Loading, LucideAngularModule, FullCalendarModule, JsonPipe],
+  imports: [Loading, ClienteLogin, LucideAngularModule, FullCalendarModule, JsonPipe],
   templateUrl: './agendamento.html',
   styleUrl: './agendamento.css',
 })
@@ -32,20 +40,27 @@ export class Agendamento implements OnInit {
   private http = inject(HttpClient);
   private barbers = inject(BarbeiroAll);
   private serviceBarber = inject(BarberService);
+  private agendar = inject(AgendService);
   readonly Scissors = Scissors;
   readonly DollarSign = DollarSign;
   readonly Clock = Clock;
   readonly ListFilter = ListFilter;
+  readonly CalendarDays = CalendarDays;
 
   barbearia = signal<any>(null);
   loading = signal(true);
   erro = signal<string | null>(null);
+  clienteCadastrado = signal(false);
+  cliente = signal<any>(null);
+
   barbeiros: BarberProps[] = [];
   barbeiroItem: BarberProps | null = null;
   serviceAllBarber: ServiceProps[] | null = null;
   serviceItem: ServiceProps | null = null;
   agendOcupation: any[] | null = null;
   horario: string | null = null;
+  dataFomatada: string | null = null;
+  horaFormatada: string | null = null;
 
   get durationHours(): string {
     return (this.serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0');
@@ -128,6 +143,14 @@ export class Agendamento implements OnInit {
       return; // Interrompe a execução
     }
     this.horario = horarioInicio;
+    const objetoData = new Date(horarioInicio);
+    this.dataFomatada = objetoData.toLocaleDateString('pt-BR');
+    this.horaFormatada = objetoData.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+
     console.log('Horas selecionada', this.horario);
 
     // 1. Pega a instância do calendário que disparou o clique
@@ -170,6 +193,32 @@ export class Agendamento implements OnInit {
     this.carregarBarbeiros();
     this.carregarBarbearia();
     this.carregarHorariosOcupados();
+    this.carregarClienteDoStorage();
+  }
+
+  private carregarClienteDoStorage(): void {
+    const raw = localStorage.getItem('client');
+
+    if (raw) {
+      try {
+        const cliente = JSON.parse(raw);
+        this.cliente.set(cliente);
+        this.clienteCadastrado.set(true);
+        console.log('Cliente já cadastrado:', cliente);
+      } catch {
+        // storage corrompido — limpa e mostra login
+        localStorage.removeItem('client');
+        this.clienteCadastrado.set(false);
+      }
+    } else {
+      this.clienteCadastrado.set(false);
+    }
+  }
+
+  onClienteCadastrado(): void {
+    this.carregarClienteDoStorage(); // relê do storage (fonte única de verdade)
+    // ou, se quiser evitar o parse:
+    // this.clienteCadastrado.set(true);
   }
 
   carregarHorariosOcupados() {
@@ -286,5 +335,23 @@ export class Agendamento implements OnInit {
   handleService({ service }: { service: ServiceProps }): void {
     this.serviceItem = service;
     console.log('Serviços selecionados', this.serviceItem);
+  }
+
+  handleAgendar() {
+    const dados = {
+      cliente: this.idClients,
+      barbeiro_id: this.barbeiroItem?.id,
+      agend: this.horario,
+      service: this.serviceItem,
+    };
+    console.log('Dados para enviar a Api', dados);
+    this.agendar.agendar({ dados }).subscribe({
+      next: (data) => {
+        console.log('Agendado com sucesso', data);
+      },
+      error: (err) => {
+        console.error('Erro ao agendar', err);
+      },
+    });
   }
 }

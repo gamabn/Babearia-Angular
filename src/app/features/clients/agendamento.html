@@ -1,4 +1,11 @@
 <div class="container">
+  @if (!clienteCadastrado()) {
+    <app-cliente-login
+      [idClients]="idClients"
+      (cadastrado)="onClienteCadastrado()"
+    ></app-cliente-login>
+  }
+
   @if (loading()) {
     <app-loading></app-loading>
   }
@@ -118,7 +125,16 @@
       <section class="sessao-resumo">
         <div>
           <div class="sessao-top">
-            <H2>Resumodo agendamento</H2>
+            <h2>
+              <span>
+                <lucide-icon
+                  [img]="CalendarDays"
+                  class="my-icon"
+                  color="#00ff"
+                  [size]="18"
+                ></lucide-icon> </span
+              >Resumo do agendamento
+            </h2>
           </div>
           <!---- <pre>{{ serviceItem | json }}</pre> */} -->
           <div class="service-item">
@@ -126,15 +142,85 @@
             <p style="font-weight: bolder; font-size: 16px">{{ barbeiroItem?.name }}</p>
           </div>
 
-          <div style="margin-top: 10px">
+          <div style="margin-top: 10px; border-bottom: 1px solid gray">
             <h2 style="text-align: center; font-size: 20px">Serviços</h2>
-            <p>serviço: {{ serviceItem?.name }}</p>
-            <p>
-              {{ (serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0') }}:
-              {{ (serviceItem?.duration?.minutes ?? 0).toString().padStart(2, '0') }}:
-              {{ (serviceItem?.duration?.seconds ?? 0).toString().padStart(2, '0') }}
-            </p>
-            <p>{{ serviceItem?.price }}</p>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 15px;
+                background-color: rgb(255, 254, 253);
+                padding: 0 5px 0 5px;
+              "
+            >
+              <p>{{ serviceItem?.name }}</p>
+              <p>
+                {{ (serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0') }}:
+                {{ (serviceItem?.duration?.minutes ?? 0).toString().padStart(2, '0') }}:
+                {{ (serviceItem?.duration?.seconds ?? 0).toString().padStart(2, '0') }}
+              </p>
+              <p style="color: green; font-size: 20px">R$ {{ serviceItem?.price }}</p>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              background-color: rgb(138, 134, 134, 03);
+              border-radius: 4px;
+              margin-top: 15px;
+              padding: 15px 5px 15px 5px;
+            "
+          >
+            <h2 style="font-size: 20px; font-weight: bold">Total</h2>
+            <h2 style="color: green; font-weight: bold">R$ {{ serviceItem?.price }}</h2>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              background-color: rgb(138, 134, 134, 03);
+              border-radius: 4px;
+              margin-top: 10px;
+              padding: 15px 5px 15px 5px;
+            "
+          >
+            <h2 style="font-size: 20px; font-weight: bold">
+              {{ dataFomatada }}
+            </h2>
+            <h2 style="font-size: 20px; font-weight: bold; color: blue">
+              {{ horaFormatada }}
+            </h2>
+          </div>
+
+          <div
+            style="
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              background-color: blue;
+              border-radius: 4px;
+              margin-top: 10px;
+              padding: 8px 5px 8px 5px;
+            "
+          >
+            <button
+              (click)="handleAgendar()"
+              style="
+                display: flex;
+                border: none;
+                background-color: transparent;
+                font-size: 20px;
+                color: white;
+              "
+            >
+              Agendar
+            </button>
           </div>
         </div>
       </section>

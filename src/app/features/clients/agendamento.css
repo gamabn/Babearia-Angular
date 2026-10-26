@@ -128,9 +128,10 @@
 }
 
 .sessao-top {
-  text-align: center;
+  margin: 10px 0 10px 0;
+  font-size: 16px;
   color: blue;
-  margin-bottom: 5px;
+  text-align: center;
 }
 
 .sessao-3 {
@@ -149,6 +150,7 @@
   justify-content: center;
   padding: 8px;
   border: 1px solid #000;
+  border-radius: 10px;
 }
 .service-item {
   display: flex;
@@ -234,5 +236,8 @@
   ::ng-deep .fc .fc-button {
     padding: 4px 8px;
     font-size: 0.8rem;
+  }
+  .sessao-resumo {
+    width: 100%;
   }
 }

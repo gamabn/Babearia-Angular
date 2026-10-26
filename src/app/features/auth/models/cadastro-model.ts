@@ -78,6 +78,11 @@ export interface AgendamentoProps {
   client_phone?: string; // Adicionado (opcional)
   total_price?: number; // Adicionado (opcional)
 }
+export interface ClientsProps {
+  name: string;
+  client_phone: string;
+  barbearia_id: string;
+}
 
 export enum Status {
   agendado = 'AGENDADO',

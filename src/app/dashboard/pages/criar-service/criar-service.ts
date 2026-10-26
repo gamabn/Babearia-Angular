@@ -15,6 +15,7 @@ import { LucideAngularModule, DollarSign, Trash } from 'lucide-angular';
 import { ModalTrash } from '../../../components/modal-trash/modal-trash';
 import { CriarServiceBarber } from '../../../core/services/criar-service-barber';
 import { Loading } from '../../../components/loading/loading/loading';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-criar-service',
