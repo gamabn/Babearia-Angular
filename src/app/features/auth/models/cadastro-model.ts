@@ -83,6 +83,20 @@ export interface ClientsProps {
   client_phone: string;
   barbearia_id: string;
 }
+export interface GetAgendamentoProps {
+  id: string;
+  date_agend: string; // ✅ corrigido (era dat_agend)
+  date_finish: string;
+  status: Status;
+  duration_total: string; // ✅ interval → string
+  total_price: string; // ✅ numeric → string (era number)
+  tipo: string; // ✅ adicionado (estava faltando)
+  client_name: string;
+  client_phone: string; // ✅ corrigido (era cliente_phone)
+  barber_id: string; // ✅ adicionado
+  barber_name: string;
+  services: ServiceProps[]; // ✅ corrigido (era service)
+}
 
 export enum Status {
   agendado = 'AGENDADO',

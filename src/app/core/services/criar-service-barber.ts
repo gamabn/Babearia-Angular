@@ -11,7 +11,7 @@ export class CriarServiceBarber {
   constructor(private http: HttpClient) {}
 
   createServiceId(data: any) {
-    console.log('Dados do Serviço', data);
+    // console.log('Dados do Serviço', data);
     return this.http.post(`${this.baseUrl}/service`, data);
   }
 }

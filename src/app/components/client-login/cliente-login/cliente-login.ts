@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Loading } from '../../loading/loading/loading';
 import { Client } from '../../../core/services/cliente/client';
-import { error } from 'console';
 
 @Component({
   selector: 'app-cliente-login',

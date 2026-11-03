@@ -1,2 +1,74 @@
-<p>financas works!</p>
-<app-loading></app-loading>
+<div class="container">
+  <h1>Financeiro</h1>
+  <div class="container-card">
+    <div class="card">
+      <div>
+        <p style="font-size: 15px; display: flex; flex-direction: row; gap: 8px">
+          <span>
+            <lucide-angular
+              [img]="Calendar"
+              class="my-icon"
+              color="#000"
+              [size]="15"
+            ></lucide-angular></span
+          >{{ now | date: 'dd/MM/yyyy' }}
+        </p>
+        <p style="font-size: 13px; padding: 5px 0 5px 0">Faturamento do dia</p>
+        <p
+          style="
+            font-size: 13px;
+            display: flex;
+            flex-direction: row;
+            gap: 8px;
+            padding: 5px 0 5px 0;
+            align-items: center;
+            color: #008000;
+          "
+        >
+          <lucide-angular
+            [img]="DollarSign"
+            class="my-icon"
+            color="green"
+            font-size:
+            17px
+            [size]="20"
+          ></lucide-angular>
+
+          {{ totalDay | currency: 'BRL' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <span style="display: flex; flex-direction: row; padding: 5px 0 5px 0; gap: 8px">
+        <lucide-angular [img]="Calendar" class="my-icon" color="#000" [size]="15"></lucide-angular>
+        {{ weekDays[0] | date: 'dd/MM/yyyy' }} - {{ weekDays[6] | date: 'dd/MM/yyyy' }}
+      </span>
+
+      <p style="font-size: 13px; padding-bottom: 5px">Faturamento da semana</p>
+      <p
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 13px;
+          color: #008000;
+          gap: 8px;
+        "
+      >
+        <lucide-angular
+          [img]="DollarSign"
+          class="my-icon"
+          color="#008000"
+          [size]="20"
+        ></lucide-angular>
+        {{ totalWeek | currency: 'BRL' }}
+      </p>
+    </div>
+
+    <div class="card">
+      <lucide-angular [img]="Calendar" class="my-icon" color="#008000" [size]="15"></lucide-angular>
+      <p style="font-size: 13px">Faturamento do mês</p>
+    </div>
+  </div>
+</div>

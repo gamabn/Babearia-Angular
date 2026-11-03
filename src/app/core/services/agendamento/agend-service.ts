@@ -11,13 +11,14 @@ export class AgendService {
   constructor(private http: HttpClient) {}
 
   agendar({ dados }: any): Observable<any> {
-    console.log('Dados do agendamento', dados);
+    // console.log('Dados do agendamento', dados);
+
     return this.http.post(`${this.baseUrl}/agend`, {
       client_id: dados.cliente,
       barber_id: dados.barbeiro_id,
       date_agend: dados.agend,
       // service_ids: dados.service.map((item: any) => item.id),
-      service_id: [dados.service],
+      service_ids: [dados.service],
       tipo: 'AGENDAMENTO',
     });
   }

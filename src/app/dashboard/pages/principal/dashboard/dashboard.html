@@ -1,9 +1,158 @@
 <div class="container">
   @if (loading) {
     <app-loading></app-loading>
+  } @else {
+    <div class="container-box">
+      <h1>Bem-vindo {{ user?.barbershop?.name }}</h1>
+      <p>Barbearia: {{ user?.barbershop?.phone }}</p>
+      <p>total: {{ statusAgend.length }} agendamentos</p>
+
+      @if (this.idDelete) {
+        <app-delet-modal
+          [idDelete]="idDelete"
+          (onConfirm)="confirmarExclusao()"
+          (onCancel)="cancelarExclusao()"
+        ></app-delet-modal>
+      }
+
+      @if (statusAgend.length > 0) {
+        <div class="container-card">
+          @for (a of statusAgend; track a.id) {
+            <div class="card">
+              <div class="card-item">
+                <span>
+                  <svg
+                    class="my-icon"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#008000"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M20 21a8 8 0 0 0-16 0"></path>
+                    <circle cx="12" cy="8" r="5"></circle>
+                  </svg>
+                </span>
+                <p style="font-size: 13px">
+                  {{ a.client_name }}
+                </p>
+              </div>
+              <div style="display: flex; flex-direction: row; gap: 8px">
+                <span>
+                  <lucide-icon
+                    [img]="Scissor"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="15"
+                  ></lucide-icon>
+                </span>
+                <p style="font-size: 13px">{{ a.barber_name }}</p>
+              </div>
+
+              <div class="card-item">
+                <span>
+                  <lucide-icon
+                    [img]="Calendar"
+                    class="my-icon"
+                    color="#008000"
+                    [size]="15"
+                  ></lucide-icon>
+                </span>
+                <p style="font-size: 13px">{{ a.date_agend | date: 'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+              <span style="font-size: 13px; font-weight: lighter">{{ a.status }}</span>
+
+              <div>
+                <h2
+                  style="
+                    font-size: 16px;
+                    padding: 5px 0 3px 0;
+                    margin-top: 8px;
+                    border-top: 1px outset gray;
+                    font-weight: lighter;
+                    color: blue;
+                  "
+                >
+                  Serviços
+                </h2>
+                @for (s of a.services; track s.id) {
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      align-items: center;
+                      justify-content: space-between;
+                    "
+                  >
+                    <p style="font-size: 13px">{{ s.name }}</p>
+                    <p style="color: green; size: 15px; font-weight: bold">
+                      {{ formatReal(s.price) }}
+                    </p>
+                  </div>
+                }
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  border-top: 1px outset gray;
+                  padding: 10px 0 10px 0;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 20px; font-weight: bold; margin-right: 5px">total:</h2>
+                <span style="display: flex; font-size: 20px; font-weight: bold; color: green">
+                  {{ a.total_price }}
+                </span>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  border-top: 1px outset gray;
+                  padding: 5px 0 5px 0;
+                "
+              >
+                <button
+                  (click)="mudarStatus(a.id)"
+                  style="
+                    padding: 8px;
+                    border: none;
+                    background-color: blue;
+                    color: white;
+                    border-radius: 8px;
+                    font-size: 13px;
+                  "
+                >
+                  Finalizar
+                </button>
+                <button
+                  (click)="abrirModalDeletar(a.id)"
+                  style="
+                    padding: 8px;
+                    border: none;
+                    background-color: red;
+                    color: white;
+                    border-radius: 8px;
+                    font-size: 13px;
+                  "
+                >
+                  {{ buttonLoading ? 'Excluindo...' : 'Excluir' }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <div style="margin-top: 20px; color: gray">Nenhum agendamento encontrado...</div>
+      }
+    </div>
   }
-  <div class="container-box">
-    <h1>Bem-vindo {{ user?.barbershop?.name }}</h1>
-    <p>Barbearia: {{ user?.barbershop?.phone }}</p>
-  </div>
 </div>

@@ -1,0 +1,44 @@
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  "
+>
+  <p>Tem certeza que deseja excluir este agendamento?</p>
+  <div style="display: flex; justify-content: space-between; width: 100%; margin-top: 20px">
+    <button
+      style="
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      "
+      (click)="confirmarExclusao()"
+    >
+      Sim
+    </button>
+    <button
+      style="
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+      "
+      (click)="cancelarExclusao()"
+    >
+      Não
+    </button>
+  </div>
+</div>

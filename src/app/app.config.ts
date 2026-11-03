@@ -5,7 +5,9 @@ import {
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
+  LOCALE_ID,
 } from '@angular/core';
+
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http'; // 1. Importe
 import { authInterceptor } from './core/services/auth.interceptor';
@@ -59,5 +61,6 @@ export const appConfig: ApplicationConfig = {
       ionBuildOutline,
     }),
     provideAnimations(),
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
 };

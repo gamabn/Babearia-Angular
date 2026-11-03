@@ -9,6 +9,10 @@
     "test": "ng test",
     "serve:ssr:barbeiros": "node dist/barbeiros/server/server.mjs"
   },
+  "assets": [
+    "src/favicon.ico",
+    "src/assets"
+  ],
   "prettier": {
     "printWidth": 100,
     "singleQuote": true,
@@ -41,9 +45,11 @@
     "@ng-icons/core": "^29.10.0",
     "@ng-icons/heroicons": "^33.0.0",
     "@ng-icons/ionicons": "^33.0.0",
+    "date-fns": "^4.4.0",
     "express": "^5.1.0",
     "lucide-angular": "^1.0.0",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

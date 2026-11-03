@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, Input, NgZone, OnInit, inject, signal, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Loading } from '../../components/loading/loading/loading';
@@ -22,6 +22,7 @@ import { Agendamentos } from '../../core/services/getAgend/agendamentos';
 import { AgendamentoProps } from '../auth/models/cadastro-model';
 import { JsonPipe } from '@angular/common';
 import { ClienteLogin } from '../../components/client-login/cliente-login/cliente-login';
+import { isPlatformBrowser } from '@angular/common';
 
 // 1. Importe o arquivo de tradução do português do Brasil
 import ptBrLocale from '@fullcalendar/core/locales/pt-br';
@@ -41,6 +42,7 @@ export class Agendamento implements OnInit {
   private barbers = inject(BarbeiroAll);
   private serviceBarber = inject(BarberService);
   private agendar = inject(AgendService);
+  platformId = inject(PLATFORM_ID);
   readonly Scissors = Scissors;
   readonly DollarSign = DollarSign;
   readonly Clock = Clock;
@@ -52,7 +54,9 @@ export class Agendamento implements OnInit {
   erro = signal<string | null>(null);
   clienteCadastrado = signal(false);
   cliente = signal<any>(null);
+  //  loadingButton = signal(false);
 
+  loadingButton = false;
   barbeiros: BarberProps[] = [];
   barbeiroItem: BarberProps | null = null;
   serviceAllBarber: ServiceProps[] | null = null;
@@ -61,6 +65,8 @@ export class Agendamento implements OnInit {
   horario: string | null = null;
   dataFomatada: string | null = null;
   horaFormatada: string | null = null;
+  message: string | null = null;
+  clientObject: any = null;
 
   get durationHours(): string {
     return (this.serviceItem?.duration?.hours ?? 0).toString().padStart(2, '0');
@@ -190,6 +196,10 @@ export class Agendamento implements OnInit {
       this.loading.set(false);
       return;
     }
+    if (isPlatformBrowser(this.platformId)) {
+      this.carregarClienteDoStorage();
+    }
+
     this.carregarBarbeiros();
     this.carregarBarbearia();
     this.carregarHorariosOcupados();
@@ -197,12 +207,14 @@ export class Agendamento implements OnInit {
   }
 
   private carregarClienteDoStorage(): void {
+    // Proteção extra (caso chamado em outro lugar)
+    if (!isPlatformBrowser(this.platformId)) return;
     const raw = localStorage.getItem('client');
-
+    //  const raw = this.clientObject;
     if (raw) {
       try {
         const cliente = JSON.parse(raw);
-        this.cliente.set(cliente);
+        this.clientObject = cliente;
         this.clienteCadastrado.set(true);
         console.log('Cliente já cadastrado:', cliente);
       } catch {
@@ -332,25 +344,54 @@ export class Agendamento implements OnInit {
     });
   }
 
+  private zone = inject(NgZone);
   handleService({ service }: { service: ServiceProps }): void {
     this.serviceItem = service;
     console.log('Serviços selecionados', this.serviceItem);
   }
 
   handleAgendar() {
+    //  console.log('1. Botão clicado. Verificando dados...');
+    console.log('Dentro da zona?', NgZone.isInAngularZone()); // 👈
+
+    if (!this.clientObject) {
+      this.message = 'Client nao encontrado';
+      return;
+    }
+
+    if (!this.horario) {
+      console.error('Nenhum horário selecionado no calendário.');
+      return;
+    }
+    // console.log('loadingButton antes:', this.loadingButton());
+    // console.log('2. Validações passaram. Ativando loading...');
+    this.loadingButton = true;
+    // console.log('loadingButton depois:', this.loadingButton());
+    this.message = null;
     const dados = {
-      cliente: this.idClients,
+      cliente: this.clientObject.id,
       barbeiro_id: this.barbeiroItem?.id,
       agend: this.horario,
-      service: this.serviceItem,
+      service: this.serviceItem?.id,
     };
-    console.log('Dados para enviar a Api', dados);
+    // console.log('Dados para enviar a Api', dados);
+    console.log('3. Dados preparados para enviar à API:', dados);
+
     this.agendar.agendar({ dados }).subscribe({
       next: (data) => {
-        console.log('Agendado com sucesso', data);
+        // console.log('Agendado com sucesso', data);
+        console.log('Dentro da zona (next)?', NgZone.isInAngularZone()); // 👈
+        // console.log('4. ✅ Sucesso! Resposta da API:', data);
+        this.loadingButton = false;
+        this.carregarHorariosOcupados();
+        this.horario = null;
+        this.serviceItem = null;
+        this.serviceAllBarber = null;
       },
       error: (err) => {
+        console.log('Dentro da zona (error)?', NgZone.isInAngularZone()); // 👈
         console.error('Erro ao agendar', err);
+        this.loadingButton = false;
       },
     });
   }

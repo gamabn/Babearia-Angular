@@ -138,12 +138,25 @@
           </div>
           <!---- <pre>{{ serviceItem | json }}</pre> */} -->
           <div class="service-item">
-            <p style="font-weight: 300; font-size: 15px">barbeiro</p>
-            <p style="font-weight: bolder; font-size: 16px">{{ barbeiroItem?.name }}</p>
+            <div>
+              <p style="font-weight: 300; font-size: 15px; font-weight: 100; margin-bottom: 8px">
+                Barbeiro
+              </p>
+              <p style="font-weight: lighter; font-weight: 100; font-size: 16px">
+                {{ barbeiroItem?.name }}
+              </p>
+            </div>
+
+            <div>
+              <p style="font-weight: 300; font-size: 15px">Cliente</p>
+              <p style="font-weight: bolder; font-weight: 100; font-size: 16px">
+                {{ clientObject?.name }}
+              </p>
+            </div>
           </div>
 
           <div style="margin-top: 10px; border-bottom: 1px solid gray">
-            <h2 style="text-align: center; font-size: 20px">Serviços</h2>
+            <h2 style="text-align: center; font-weight: 100; font-size: 20px">Serviços</h2>
             <div
               style="
                 display: flex;
@@ -197,33 +210,39 @@
               {{ horaFormatada }}
             </h2>
           </div>
-
-          <div
-            style="
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              background-color: blue;
-              border-radius: 4px;
-              margin-top: 10px;
-              padding: 8px 5px 8px 5px;
-            "
-          >
-            <button
-              (click)="handleAgendar()"
-              style="
-                display: flex;
-                border: none;
-                background-color: transparent;
-                font-size: 20px;
-                color: white;
-              "
-            >
-              Agendar
-            </button>
-          </div>
         </div>
       </section>
+    }
+    @if (horario) {
+      <div
+        style="
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background-color: blue;
+          border-radius: 4px;
+          margin-top: 10px;
+          padding: 8px 5px 8px 5px;
+          width: 100%;
+        "
+      >
+        <button
+          [disabled]="loadingButton"
+          type="button"
+          (click)="handleAgendar()"
+          style="
+            display: flex;
+            border: none;
+            background-color: transparent;
+            font-size: 15px;
+            font-weight: lighter;
+            color: white;
+            cursor: pointer;
+          "
+        >
+          {{ loadingButton ? 'Agendando...' : 'Agendar' }}
+        </button>
+      </div>
     }
 
     <!-- Aqui vem o form de agendamento -->

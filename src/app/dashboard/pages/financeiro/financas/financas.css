@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background-color: rgb(255, 254, 254);
+  color: #070707;
+}
+.container-card {
+  width: 100%;
+  margin-top: 15px;
+  display: grid;
+  /* O segredo da responsividade está na linha abaixo */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px; /* Espaçamento entre os cards */
+
+  width: 100%;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: start;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
