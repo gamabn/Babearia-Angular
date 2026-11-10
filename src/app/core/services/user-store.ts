@@ -3,6 +3,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, Observable, of, tap } from 'rxjs';
 import { CadastroModel, BarberShopResponse } from '../../features/auth/models/cadastro-model';
 import { isPlatformBrowser } from '@angular/common';
+import { ServiceToken } from './token/service-token';
 
 @Injectable({
   providedIn: 'root',
@@ -16,16 +17,9 @@ export class UserStore {
   constructor(
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object,
+    private serviceToken: ServiceToken,
   ) {}
-  //  const token = localStorage.getItem('token');
 
-  // if (token) {
-  //  this.http.get<CadastroModel>('/user/detail').subscribe({
-  //    next: user => this.userSubject.next(user),
-  //    error: () => this.clear()
-  //  });
-  // }
-  ///============================
   setUser(user: BarberShopResponse | null) {
     this.userSubject.next(user);
   }
@@ -35,15 +29,15 @@ export class UserStore {
       return of(null);
     }
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      return of(null);
-    }
+    // const token = localStorage.getItem('token');
+    // if (!token) {
+    //   return of(null);
+    // }
 
     return this.http.get<BarberShopResponse>(`${this.baseUrl}/user/detail`).pipe(
       tap((user) => this.setUser(user)),
       catchError(() => {
-        this.clear();
+        //  this.clear();
         return of(null);
       }),
     );
@@ -51,18 +45,7 @@ export class UserStore {
 
   clear() {
     this.userSubject.next(null);
+    this.serviceToken.clearToken();
     localStorage.removeItem('token');
   }
 }
-
-//   setUser(user: any) {
-//    this.userSubject.next(user);
-//  }
-
-//   getUser() {
-//     return this.userSubject.value;
-///   }
-
-//   clear() {
-//     this.userSubject.next(null);
-//   }

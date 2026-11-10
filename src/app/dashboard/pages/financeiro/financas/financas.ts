@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { Calendar, Scissors, DollarSign, LucideAngularModule } from 'lucide-angular';
 import { GetAgend } from '../../../../core/services/agendamento/get-agend';
 import { UserStore } from '../../../../core/services/user-store';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-financas',
-  imports: [Loading, CommonModule, LucideAngularModule],
+  imports: [Loading, RouterLink, CommonModule, LucideAngularModule],
   templateUrl: './financas.html',
   styleUrl: './financas.css',
 })
@@ -18,12 +19,15 @@ export class Financas implements OnInit {
 
   barbearia: any = null;
   now = new Date();
+  agendamentosFinalizados: any[] = [];
 
   totalDay = 0;
   totalWeek = 0;
   totalMonth = 0;
 
   weekDays = this.getWeekDays(this.now);
+  mes = this.now.getMonth() + 1;
+  ano = this.now.getFullYear();
 
   constructor(
     private consultarAgendamento: GetAgend,
@@ -37,10 +41,11 @@ export class Financas implements OnInit {
 
       this.consultarAgendamento.consutarAgend(this.barbearia?.barbershop?.id).subscribe({
         next: (agendamentos) => {
-          console.log('Agendamentos:', agendamentos);
+          // console.log('Agendamentos:', agendamentos);
 
           // Só os finalizados
           const finalizados = agendamentos.filter((a) => a.status === 'FINALIZADO');
+          this.agendamentosFinalizados = finalizados;
 
           // --- DIA ---
           this.totalDay = finalizados
@@ -57,9 +62,9 @@ export class Financas implements OnInit {
             .filter((a) => this.isMesmoMes(new Date(a.date_finish), this.now))
             .reduce((total, a) => total + Number(a.total_price), 0);
 
-          console.log('Dia:', this.totalDay);
-          console.log('Semana:', this.totalWeek);
-          console.log('Mês:', this.totalMonth);
+          //console.log('Dia:', this.totalDay);
+          //console.log('Semana:', this.totalWeek);
+          //console.log('Mês:', this.totalMonth);
         },
         error: (err) => {
           console.error('Erro ao consultar agendamentos:', err);

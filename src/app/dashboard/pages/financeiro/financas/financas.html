@@ -67,8 +67,57 @@
     </div>
 
     <div class="card">
-      <lucide-angular [img]="Calendar" class="my-icon" color="#008000" [size]="15"></lucide-angular>
+      <span
+        style="
+          display: flex;
+          gap: 8px;
+          flex-direction: row;
+          align-items: center;
+          padding: 5px 0 5px 0;
+        "
+      >
+        <lucide-angular [img]="Calendar" class="my-icon" color="#000" [size]="15"></lucide-angular>
+        {{ now | date: 'MM/yyyy' }}
+      </span>
+
       <p style="font-size: 13px">Faturamento do mês</p>
+      <p
+        style="
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 5px 0 5px;
+          font-size: 13px;
+          color: #008000;
+          gap: 8px;
+        "
+      >
+        <lucide-angular [img]="DollarSign" color="#008000" [size]="20"></lucide-angular>
+        {{ totalMonth | currency: 'BRL' }}
+      </p>
     </div>
+  </div>
+  <div class="container-card">
+    <button
+      [routerLink]="['/app/financas-day']"
+      [state]="{ agendamentos: agendamentosFinalizados }"
+      class="container-button"
+    >
+      Relatorio diario
+    </button>
+    <button
+      [routerLink]="['/app/financas-week']"
+      [state]="{ agendamentos: agendamentosFinalizados }"
+      class="container-button"
+    >
+      Relatorio semanal
+    </button>
+    <button
+      [routerLink]="['/app/financas-months']"
+      [state]="{ agendamentos: agendamentosFinalizados }"
+      class="container-button"
+    >
+      Relatorio mensal
+    </button>
   </div>
 </div>

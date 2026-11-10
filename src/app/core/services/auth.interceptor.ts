@@ -1,54 +1,45 @@
-import { isPlatformBrowser } from "@angular/common";
-import { HttpInterceptorFn } from "@angular/common/http";
-import { inject, PLATFORM_ID } from "@angular/core";
-import { catchError, throwError } from "rxjs";
+import { isPlatformBrowser } from '@angular/common';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject, PLATFORM_ID } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 
+import { ServiceToken } from './token/service-token';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const platformId = inject(PLATFORM_ID);
+  const serviceToken = inject(ServiceToken);
 
-   const platformId = inject(PLATFORM_ID);
+  const token = serviceToken.getToken();
 
-  // 🚫 SSR não tem token
-  if (!isPlatformBrowser(platformId)) {
-    return next(req);
-  }
+  console.log('🛡️ INTERCEPTOR:', req.url);
+  console.log('🔑 Token disponível:', !!token);
 
-  const token = localStorage.getItem('token');
+  // Somente o backend autorizado deve receber o token.
+  const isBackend = req.url.startsWith('http://localhost:3333/');
 
-  if (token) {
+  // O login não precisa de Bearer.
+  const isLogin = new URL(req.url, 'http://localhost:4200').pathname === '/login';
+
+  if (isBackend && !isLogin) {
     req = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${token}`)
+      ...(token
+        ? {
+            setHeaders: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        : {}),
+      ...(isPlatformBrowser(platformId) ? { withCredentials: true } : {}),
     });
   }
 
   return next(req).pipe(
-    catchError(err => {
-      if (err.status === 401) {
-        localStorage.removeItem('token');
+    catchError((error) => {
+      if (error.status === 401) {
+        console.warn('❌ Não autorizado:', req.url);
       }
-      return throwError(() => err);
-    })
+
+      return throwError(() => error);
+    }),
   );
 };
-
-  //======================================================================
- // const token = localStorage.getItem('token');
-
- // if(token){
- ////    req = req.clone({
- //     headers: req.headers.set(
- //       'Authorization',
-  //      `Bearer ${token}`
- //     )
- //   });
- // }
-//return next(req).pipe(
-//    catchError(err => {
- //     if (err.status === 401) {
-//        localStorage.removeItem('token');
- //     }
- //     return throwError(() => err);
- //   })
- // );
-
-//}

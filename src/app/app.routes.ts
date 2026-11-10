@@ -52,6 +52,18 @@ export const routes: Routes = [
           import('./dashboard/pages/barbeiros/barbeiros').then((m) => m.Barbeiros),
       },
       {
+        path: 'financas-day',
+        loadComponent: () => import('./components/financas/day/day').then((m) => m.Day),
+      },
+      {
+        path: 'financas-week',
+        loadComponent: () => import('./components/financas/week/week').then((m) => m.Week),
+      },
+      {
+        path: 'financas-months',
+        loadComponent: () => import('./components/financas/months/months').then((m) => m.Months),
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full',
